@@ -1,0 +1,1 @@
+{include uri='design:content/advancedsearch.tpl' phrase_search_text=''}
