@@ -1,4 +1,9 @@
-{* Folder - Full view *}
+{def $openpa = object_handler($node)
+     $is_albotelematico_container = false()}
+{if and( is_set( $openpa.content_albotelematico ), $openpa.content_albotelematico.is_container )}
+  {set $is_albotelematico_container = true()}
+{/if}
+
 {include name=menu_control node=$node uri='design:parts/common/menu_control.tpl'}
 
 {def $current_user = fetch( 'user', 'current_user' )
@@ -12,7 +17,7 @@
     <div class="class-folder">
 
         <h1>{attribute_view_gui attribute=$node.data_map.name}</h1>
-	
+
         {* DATA e ULTIMAMODIFICA *}
         {*include name = last_modified
                  node = $node             
@@ -22,7 +27,12 @@
         {include name = editor_tools
                  node = $node             
                  uri = 'design:parts/openpa/editor_tools.tpl'}
-    
+
+    {if $is_albotelematico_container}
+
+        {include uri=$openpa.content_albotelematico.container_template}
+
+    {else}
         {* ATTRIBUTI : mostra i contenuti del nodo *}
         {include name = attributi_principali
                  uri = 'design:parts/openpa/attributi_principali.tpl'
@@ -91,10 +101,10 @@
             {/if}
             
             {def $sortArray = $node.object.main_node.sort_array
-			     $order = $sortArray[0][0]}
-		    {if array( 'published', 'name' )|contains( $order )|not()}
-			   {set $order = 'published'}
-			{/if}
+			           $order = $sortArray[0][0]}
+            {if array( 'published', 'name' )|contains( $order )|not()}
+             {set $order = 'published'}
+            {/if}
             {if $sortArray[0][1]|eq( 1 )}
                 {def $sortHash = hash( $order, 'asc' )}
             {else}
@@ -220,7 +230,9 @@
                          item_limit=$page_limit}
             {/if} 
         {/if}
-        
+
+    {/if} {* if $is_albo_telematico_container *}
+
         {* TIP A FRIEND *}
         {include name=tipafriend node=$node uri='design:parts/common/tip_a_friend.tpl'}
 
