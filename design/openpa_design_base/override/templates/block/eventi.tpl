@@ -35,7 +35,6 @@ $(document).ready(function() {
 {else}
     {def $calendarDataOther = false()}
 {/if}
-{debug-log var=$calendarDataDay.fetch_parameters msg='Blocco eventi fetch oggi'}
      
 {def $day_events = $calendarDataDay.events
      $day_events_count = $calendarDataDay.search_count
@@ -43,7 +42,7 @@ $(document).ready(function() {
      $prossimi_count = 0}
 
 {if $calendarDataOther}     
-{debug-log var=$calendarDataOther.fetch_parameters msg='Blocco eventi fetch secondo tab'}
+
 {set $prossimi = $calendarDataOther.events
      $prossimi_count = $calendarDataOther.search_count}
 {/if}     

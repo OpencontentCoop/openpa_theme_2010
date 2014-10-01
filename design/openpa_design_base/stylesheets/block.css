@@ -123,3 +123,7 @@ ul.rullo li
     background-color:#fff;
     border-radius:5px;
 }
+
+.block-type-singolo ul{
+    overflow: hidden;
+}
