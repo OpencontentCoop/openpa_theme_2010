@@ -61,6 +61,7 @@ ViewName[lista_tab]=Schede (tab)
 Name=Eventi (oggi e prossimamente)
 ViewName[]
 ViewName[eventi]=Eventi (tab)
+ViewName[eventi_manual]=Eventi singoli
 
 [Iosono]
 Name=Schede Homepage (Io sono, eventi della vita, ecc...)

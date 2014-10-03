@@ -35,7 +35,7 @@
             {/if}
                         
             {foreach array( 'periodo_svolgimento', 'orario_svolgimento', 'luogo_svolgimento' ) as $identifier}
-            {if and( $node.data_map[$identifier].has_content, $node.data_map[$identifier].content|ne('0') )}
+            {if and( is_set($node.data_map[$identifier]), $node.data_map[$identifier].has_content, $node.data_map[$identifier].content|ne('0') )}
             <p>
                 {if $identifier|ne( 'file' )}
                 <strong>{$node.data_map[$identifier].contentclass_attribute_name}</strong>
