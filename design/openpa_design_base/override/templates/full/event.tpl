@@ -146,7 +146,7 @@
 	{/if}
     
     {def $iniziativa = false()}
-    {if $node.data_map.iniziativa.has_content}        
+    {if and( is_set($node.data_map.iniziativa), $node.data_map.iniziativa.has_content )}        
         {set $iniziativa = fetch( 'content', 'node', hash( 'node_id', $node.data_map.iniziativa.content.relation_list[0].node_id ) )}
         {def $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $node.parent, 'params', hash( 'interval', 'P1Y',
                                                                                                         'filter', array( concat( '-meta_id_si:', $node.contentobject_id ) ),
