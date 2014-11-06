@@ -17,7 +17,7 @@
                                 'all_relations', true() ) ) 
          $objects_count=$objects|count()}
     {foreach $objects as $object}	
-        {if $object.can_read}
+        {if and( $object.can_read, openpaini( 'GestioneClassi', 'escludi_da_riferimenti', array( 'prenotazione_sala' ) )|contains( $object.class_identifier)|not() )}
         {set $mostro_oggetti_inversamente_correlati= true()}
             {break}
         {/if}
@@ -31,7 +31,7 @@
                                     ) ) 
          $objects_count=$objects|count()}
     {foreach $objects as $object}
-        {if $object.can_read}
+        {if and( $object.can_read, openpaini( 'GestioneClassi', 'escludi_da_riferimenti', array( 'prenotazione_sala' ) )|contains( $object.class_identifier)|not() )}
         {set $mostro_oggetti_inversamente_correlati= true()}
         {break}
         {/if}
@@ -45,7 +45,7 @@
                                     ) ) 
          $objects_count=$objects|count()}
     {foreach $objects as $object}
-        {if $object.can_read}
+        {if and( $object.can_read, openpaini( 'GestioneClassi', 'escludi_da_riferimenti', array( 'prenotazione_sala' ) )|contains( $object.class_identifier)|not() )}
         {set $mostro_oggetti_inversamente_correlati= true()}
         {break}
         {/if}
@@ -54,8 +54,7 @@
 
 {if $mostro_oggetti_inversamente_correlati}
 
-    {def $style='col-odd'
-         $canread = false()
+    {def $style='col-odd'         
          $done = array()}
     {if $objects_count|gt(0)}
         {if $objects_count|lt(100)}
@@ -72,9 +71,8 @@
                     <div class="border-ml"><div class="border-mr"><div class="border-mc">
                     <div class="border-content">
                             {foreach $objects as $object}
-                            {if $done|contains( $object.id )|not()}
-                                {set $canread = fetch( 'content', 'access', hash( 'access', 'read','contentobject', $object ) )}
-                                {if $canread}
+                            {if $done|contains( $object.id )|not()}                                
+                                {if and( $object.can_read, openpaini( 'GestioneClassi', 'escludi_da_riferimenti', array( 'prenotazione_sala' ) )|contains( $object.class_identifier)|not() )}
                                 {if $style|eq('col-even')}{set $style='col-odd'}{else}{set $style='col-even'}{/if}
                                     <div class="{$style} col float-break col-notitle">
                                     <div class="col-content"><div class="col-content-design">
@@ -94,11 +92,10 @@
     
             {set-block variable=reverse_servizio}
             {def $prev_class_identifier='' $counter_c=0 $prev_class_id=0}
-            {foreach $objects as $object}
-                {set $canread = fetch( 'content', 'access', hash( 'access', 'read','contentobject', $object ) )}
-                {if $canread}
+            {foreach $objects as $object}                
+                {if and( $object.can_read, openpaini( 'GestioneClassi', 'escludi_da_riferimenti', array( 'prenotazione_sala' ) )|contains( $object.class_identifier)|not() )}
                     {if $object.class_name|eq($prev_class_identifier)}
-                                    {set $counter_c=$counter_c|sum(1)}
+                        {set $counter_c=$counter_c|sum(1)}
                     {else}
                             
                         {set-block variable=start_class_check}

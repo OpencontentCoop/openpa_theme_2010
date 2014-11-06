@@ -41,17 +41,17 @@
 				{if $node.data_map.data_iniziopubblicazione.has_content}
 					<p><strong>{$node.data_map.data_iniziopubblicazione.contentclass_attribute_name}</strong>
 					   {attribute_view_gui attribute=$node.data_map.data_iniziopubblicazione}
-						{if and( is_set( $node.data_map.data_finepubblicazione ), $node.data_map.data_finepubblicazione.has_content )}
+						{if and( is_set( $node.data_map.data_finepubblicazione ), $node.data_map.data_finepubblicazione.has_content, $node.data_map.data_finepubblicazione.content.timestamp|ne( $node.data_map.data_iniziopubblicazione.content.timestamp ) )}
 							<br /> <strong>{$node.data_map.data_finepubblicazione.contentclass_attribute_name}</strong>
 							  {attribute_view_gui attribute=$node.data_map.data_finepubblicazione}
 						{/if}
-						{if $node.data_map.data_archiviazione.has_content}
+						{if and( $node.data_map.data_archiviazione.has_content, $node.data_map.data_archiviazione.content.timestamp|ne( $node.data_map.data_iniziopubblicazione.content.timestamp ) )}
 							<br /> <strong>{$node.data_map.data_archiviazione.contentclass_attribute_name}</strong>
 							  {attribute_view_gui attribute=$node.data_map.data_archiviazione}
 						{/if}
 					</p>
 				{/if}
-			{elseif is_set($node.data_map.data_archiviazione)}
+			{elseif and( is_set($node.data_map.data_archiviazione), $node.data_map.data_archiviazione.content.timestamp|ne( $node.data_map.data_iniziopubblicazione.content.timestamp ) )}
 				{if $node.data_map.data_archiviazione.has_content}
 					<p><strong>{$node.data_map.data_archiviazione.contentclass_attribute_name}</strong>
 					{attribute_view_gui attribute=$node.data_map.data_archiviazione}</p>
