@@ -1,4 +1,5 @@
 {include name=menu_control node=$node uri='design:parts/common/menu_control.tpl'}
+
 {set-block scope=root variable=cache_ttl}400{/set-block}
 
 {def $attributi_da_evidenziare = openpaini( 'GestioneAttributi', 'attributi_da_evidenziare' )
@@ -110,9 +111,14 @@
 				 uri = 'design:parts/websitetoolbar/create_news.tpl'}
 
     {/if}
-    
+
     {* CALENDARIO OCCUPAZIONE SALA *}
-    {include name=calendario_prenotazioni node=$node uri='design:parts/prenotazioni_sala.tpl' view_parameters=$view_parameters}
+    {def $openpa = object_handler( $node )}
+    {if $openpa.control_booking_sala_pubblica}
+      {include uri=$openpa.control_booking_sala_pubblica.template}
+    {else}
+      {include name=calendario_prenotazioni node=$node uri='design:parts/prenotazioni_sala.tpl' view_parameters=$view_parameters}
+    {/if}
 
 	{* COMMENTI *}
     {if openpaini( 'GestioneClassi', 'classi_commentabili' )|contains($node.class_identifier)}

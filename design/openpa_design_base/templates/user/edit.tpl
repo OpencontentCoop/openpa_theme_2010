@@ -31,11 +31,21 @@
 <div class="block">
 <label>{"Impostazioni personali"|i18n("design/ezwebin/user/edit")}</label>
 <ul>
-{*<li><a href={"content/draft"|ezurl}>{"My drafts"|i18n("design/ezwebin/user/edit")}</a>/li>*}
-<li><a href={"notification/settings"|ezurl}>{"My notification settings"|i18n("design/ezwebin/user/edit")}</a></li>
-{*<li><a href={"/content/pendinglist"|ezurl}>{"My pending items"|i18n("design/ezwebin/user/edit")}</a></li>*}
-{*<li><a href={concat("/shop/customerorderview/", $userID, "/", $userAccount.email)|ezurl}>{"My orders"|i18n("design/ezwebin/user/edit")}</a>/li>*}
-{*<li><a href={"/shop/wishlist"|ezurl}>{"My wish list"|i18n("design/ezwebin/user/edit")}</a></li>*}
+
+{if fetch( 'user', 'has_access_to', hash( 'module', 'notification', 'function', 'use' ) )}
+  <li><a href={"notification/settings"|ezurl}>{"My notification settings"|i18n("design/ezwebin/user/edit")}</a></li>
+{/if}
+
+{if fetch( 'user', 'has_access_to', hash( 'module', 'shop', 'function', 'administrate' ) )}
+  <li><a href={concat("/shop/customerorderview/", $userID, "/", $userAccount.email)|ezurl}>{"My orders"|i18n("design/ezwebin/user/edit")}</a></li>
+{/if}
+
+{if fetch( 'user', 'has_access_to', hash( 'module', 'openpa_booking', 'function', 'book' ) )}
+  {foreach fetch( 'openpa_booking', 'handlers' ) as $handler}
+    <li><a href={concat("openpa_booking/view/", $handler.identifier)|ezurl}>{$handler.name}</a></li>
+  {/foreach}
+{/if}
+
 </ul>
 </div>
 
