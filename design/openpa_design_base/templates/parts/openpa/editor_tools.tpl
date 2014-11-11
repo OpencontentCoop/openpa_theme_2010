@@ -88,6 +88,46 @@
             {if $states|count}
             <li><strong>Stati:</strong> {foreach $states as $allowed_assign_state_info}{foreach $allowed_assign_state_info.states as $state}{if $node.object.state_id_array|contains($state.id)}{$allowed_assign_state_info.group.current_translation.name|wash()}/{$state.current_translation.name|wash}{/if}{/foreach}{delimiter}, {/delimiter}{/foreach}</li>
             {/if}
+            
+            {if $node.object.can_translate}
+            <li>            
+              <strong>Traduzioni:</strong>
+              <ul>
+              {foreach $node.object.languages as $language}
+                {if $node.object.available_languages|contains($language.locale)}
+                  <li>
+                    <a href="{concat( $node.url_alias, '/(language)/', $language.locale )|ezurl(no)}">
+                      {if $language.locale|eq($node.object.current_language)}<strong>{/if}{$language.name|wash()}{if $language.locale|eq($node.object.current_language)}</strong>{/if}
+                    </a>
+                  </li>
+                {/if}
+              {/foreach}
+              </ul>
+              {def $can_create_languages = $node.object.can_create_languages
+                   $languages = fetch( 'content', 'prioritized_languages' )}            
+              <form method="post" action={"content/action"|ezurl}>
+                <input type="hidden" name="HasMainAssignment" value="1" />
+                <input type="hidden" name="ContentObjectID" value="{$node.object.id}" />
+                <input type="hidden" name="NodeID" value="{$node.node_id}" />
+                <input type="hidden" name="ContentNodeID" value="{$node.node_id}" />
+                
+                {if and(eq( $languages|count, 1 ), is_set( $languages[0] ) )}
+                    <input name="ContentObjectLanguageCode" value="{$languages[0].locale}" type="hidden" />
+                {else}
+                  <select name="ContentObjectLanguageCode">
+                  {foreach $node.object.can_edit_languages as $language}
+                    <option value="{$language.locale}"{if $language.locale|eq($node.object.current_language)} selected="selected"{/if}>{$language.name|wash}</option>
+                  {/foreach}
+                  {if $can_create_languages}
+                    <option value="">{'New translation'|i18n( 'design/admin/node/view/full')}</option>
+                  {/if}
+                  </select>
+                {/if}
+                <input type="submit" name="EditButton" class="button defaultbutton" value="Modifica" />
+              </form>
+            </li>
+            {/if}  
+                  
         
         </ul>
 
