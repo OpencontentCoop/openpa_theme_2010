@@ -508,7 +508,7 @@ $("#selectservizio").change(function () {
         <div class="right">
             <input type="text" class="halfbox ezobject-relation-search-text" />
             <input type="submit" class="button ezobject-relation-search-btn" name="CustomActionButton[{$attribute.id}_browse_objects]" value="{'Find objects'|i18n( 'design/standard/content/datatype' )}" />
-            {*include uri='design:content/datatype/edit/ezobjectrelationlist_ajaxuploader.tpl'*}
+            {include uri='design:content/datatype/edit/ezobjectrelationlist_ajaxuploader.tpl'}
         </div>
         <div class="break"></div>
         <div class="block inline-block ezobject-relation-search-browse"></div>
