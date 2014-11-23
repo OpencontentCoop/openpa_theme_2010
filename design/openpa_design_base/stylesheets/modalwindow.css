@@ -105,6 +105,12 @@ div.box-content .modal-window div.message-error
     margin-left:0;
 }
 
+.ajaxuploader-browse .pagination li{
+    background: none;
+    display: inline;
+    list-style: none;
+}
+
 .ajaxuploader-browse .pagination span
 {
     color:#888;
