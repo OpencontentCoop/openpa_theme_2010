@@ -72,7 +72,7 @@ $(function() {
         
         <div class="calendar-day-program float-break" id="day-{$calendarDay.identifier}">
             
-            <h2>
+            <h2{if $calendarDay.is_today} id="today"{/if}>
                 {if $calendarDay.is_today}Oggi - {$calendarDay.start|l10n( 'date' )}
                 {elseif $calendarDay.is_tomorrow}Domani - {$calendarDay.start|l10n( 'date' )}
                 {elseif and( $calendarDay.is_in_week, $calendarDay.is_in_month )}{*$calendarDay.start|datetime( 'custom', '%l' )*}{$calendarDay.start|l10n( 'date' )}
