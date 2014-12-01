@@ -148,16 +148,16 @@
     {def $iniziativa = false()}
     {if and( is_set($node.data_map.iniziativa), $node.data_map.iniziativa.has_content )}        
         {set $iniziativa = fetch( 'content', 'node', hash( 'node_id', $node.data_map.iniziativa.content.relation_list[0].node_id ) )}
-        {def $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $node.parent, 'params', hash( 'interval', 'P1Y',
+        {def $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $node.parent, 'params', hash( 'interval', 'P10D',
                                                                                                                'filter', array( concat( '-meta_id_si:', $node.contentobject_id ) ),
-                                                                                                               'Manifestazione', concat( $iniziativa.name ) ) ) )}
+                                                                                                               'Manifestazione', concat( $iniziativa.name ) )|merge( $view_parameters ) ) )}
     {else}
         {def $root = fetch( content, node, hash( node_id, ezini( 'NodeSettings', 'RootNode', 'content.ini' ) ) )
-             $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $root, 'params', hash( 'interval', 'P1Y',
+             $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $root, 'params', hash( 'interval', 'P10D',
                                                                                                                'filter', array( concat( '-meta_id_si:', $node.contentobject_id ) ),
-                                                                                                               'Manifestazione', concat( $node.name ) ) ) )}
+                                                                                                               'Manifestazione', concat( $node.name ) )|merge( $view_parameters ) ) )}
     {/if}    
-    {debug-log var=$calendarData msg='object contents'}
+    {*debug-log var=$calendarData msg='object contents'*}
     {if $calendarData.search_count|gt(0)}
         <div class="oggetti-correlati">
             <div class="border-header border-box box-trans-blue box-allegati-header">
@@ -176,6 +176,38 @@
             <div class="border-body border-box box-violet box-allegati-content">
                 <div class="border-ml"><div class="border-mr"><div class="border-mc">
                 <div class="border-content">
+                    
+                    {foreach $calendarData.day_by_day as $calendarDay}    
+                      {if $calendarDay.count|gt(0)}                          
+                        <div class="calendar-day-program float-break" id="day-{$calendarDay.identifier}">
+                            
+                            <h2{if $calendarDay.is_today} id="today"{/if}>
+                                {if $calendarDay.is_today}Oggi - {$calendarDay.start|l10n( 'date' )}
+                                {elseif $calendarDay.is_tomorrow}Domani - {$calendarDay.start|l10n( 'date' )}
+                                {elseif and( $calendarDay.is_in_week, $calendarDay.is_in_month )}{*$calendarDay.start|datetime( 'custom', '%l' )*}{$calendarDay.start|l10n( 'date' )}
+                                {else}{$calendarDay.start|l10n( 'date' )}
+                                {/if}
+                            </h2>
+                    
+                            <div class="block">
+                            {foreach $calendarDay.events as $event sequence array( 'left', 'right' ) as $_style}
+                            <div class="calendar-event {$_style}">
+                                {include name="calendar-item" uri="design:calendar/program_item.tpl" event=$event}
+                            </div>
+                            {/foreach}
+                            </div>
+                        
+                        </div>
+                        {/if}
+                    {/foreach}
+                    
+                    <div class="calendar-more">    
+                        <form class="calendar-tools" method='GET' action={concat('openpa/calendar/', $node.node_id)|ezurl}>
+                          <input type="submit" name="AddIntervalButton" class="defaultbutton" value="Mostra altri eventi" />
+                        </form>
+                    </div>
+                    
+                    {*
                     <div class="calendar-day-program float-break">
                         <div class="block">
                         {foreach $calendarData.events as $event sequence array( 'left', 'right' ) as $_style}
@@ -185,8 +217,7 @@
                         {/foreach}
                         </div> 
                     </div> 
-                
-                    {*
+                                    
                     {foreach $calendarData.day_by_day as $calendarDay}    
                         {if $calendarDay.count|gt(0)}
                             
