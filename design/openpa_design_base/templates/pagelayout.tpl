@@ -71,7 +71,7 @@ document.body.className = c;
     {/if}   
 {/cache-block}    
 
-{cache-block expiry=86400 keys=array( $module_result.uri, $current_user.contentobject_id, $extra_cache_key )}
+{cache-block keys=array( $module_result.uri, $current_user.contentobject_id, $extra_cache_key )}
     {if $is_login_page|not()}
         {include uri='design:page_header_links.tpl'}        
     {/if}   

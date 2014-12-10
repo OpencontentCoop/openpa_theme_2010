@@ -17,7 +17,7 @@
                                 'all_relations', true() ) ) 
          $objects_count=$objects|count()}
     {foreach $objects as $object}	
-        {if and( $object.can_read, openpaini( 'GestioneClassi', 'escludi_da_riferimenti', array( 'prenotazione_sala' ) )|contains( $object.class_identifier)|not() )}
+        {if and( $object.can_read, openpaini( 'GestioneClassi', 'escludi_da_riferimenti', array( 'prenotazione_sala', 'event' ) )|contains( $object.class_identifier)|not() )}
         {set $mostro_oggetti_inversamente_correlati= true()}
             {break}
         {/if}

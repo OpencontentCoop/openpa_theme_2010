@@ -24,8 +24,8 @@ $(function() {
 <input type='hidden' name="View" value="program" />
 <input type='hidden' name="CurrentInterval" value="{$calendarData.parameters.interval}" />
 <div class="calendar-tools">    
-    <input class="query" placeholder="Cerca testo" type="text" name="Query" value="{$calendarData.parameters.query}" />
-    <input class="calendar_picker" placeholder="gg-mm-yyyy" type="text" name="SearchDate" title="Seleziona data" value="{$calendarData.parameters.picker_date}" />
+    <input class="query" placeholder="Cerca testo" type="text" name="Query" value="{$calendarData.parameters.query|wash()}" />
+    <input class="calendar_picker" placeholder="gg-mm-yyyy" type="text" name="SearchDate" title="Seleziona data" value="{$calendarData.parameters.picker_date|wash()}" />
     
     {foreach $calendarData.search_facets as $facetFieldName => $facets}
         <select name="{$facetFieldName}">

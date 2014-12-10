@@ -39,8 +39,8 @@ $(function() {
 <input type='hidden' name="UrlAlias" value="{$node.url_alias}" />
 <input type='hidden' name="View" value="calendar" />
 <div class="calendar-tools">            
-    <input class="query" placeholder="Cerca testo" type="text" name="Query" value="{$calendarData.parameters.query}" />
-    <input class="calendar_picker" placeholder="gg-mm-yyyy" type="text" name="SearchDate" title="Seleziona data" value="{$calendarData.parameters.picker_date}" />
+    <input class="query" placeholder="Cerca testo" type="text" name="Query" value="{$calendarData.parameters.query|wash()}" />
+    <input class="calendar_picker" placeholder="gg-mm-yyyy" type="text" name="SearchDate" title="Seleziona data" value="{$calendarData.parameters.picker_date|wash()}" />
     
     {foreach $calendarData.search_facets as $facetFieldName => $facets}
         {if count($facets)|gt(0)}
