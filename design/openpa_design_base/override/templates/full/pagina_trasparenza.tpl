@@ -78,65 +78,76 @@
                                                               'class_filter_type', 'exclude',
                                                               'class_filter_array', $classi_trasparenza|merge( $classi_note_trasparenza ) ) )}            
                 
-                {* In base al remoteid vengono caricate le visualizzazioni tabellari o normali *}
-                
-                {switch match=$node.object.remote_id}
-                    
-                    {* Consulenti e collaboratori *}
-                    {case match='b5df51b035ee30375db371af76c3d9fb'} 
-                        {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'                                 
-                                 nodes=$figli
-                                 nodes_count=$conteggio_figli
-                                 class='consulenza'}
-                    {/case}
-                    
-                    {* Incarichi amminsitrativi di vertice *}
-                    {case match='efc995388bebdd304f19eef17aab7e0d'} 
-                        {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
-                                 nodes=$figli
-                                 nodes_count=$conteggio_figli
-                                 class='dipendente'}
-                    {/case}
-                    
-                    {* Dirigenti *}
-                    {case match='9eed77856255692eca75cdb849540c23'} 
-                        {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
-                                 nodes=$figli
-                                 nodes_count=$conteggio_figli
-                                 class='dipendente'}
-                    {/case}
-                    
-                    {* Tassi di assenza *}
-                    {case match='c46fafba5730589c0b34a5fada7f3d07'} 
-                        {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
-                                 nodes=$figli
-                                 nodes_count=$conteggio_figli
-                                 class='tasso_assenza'}
-                    {/case}
-                    
-                    {* Incarichi conferiti e autorizzati ai dipendenti *}
-                    {case match='b7286a151f027977fa080f78817c895a'} 
-                        {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
-                                 nodes=$figli
-                                 nodes_count=$conteggio_figli
-                                 class='incarico'}
-                    {/case}
-                    
-                    {* Atti di concessione *}
-                    {case match='90b631e882ab0f966d03aababf3d9f15'} 
-                        {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
-                                 nodes=$figli
-                                 nodes_count=$conteggio_figli
-                                 class=array( 'sovvenzione_contributo', 'determinazione', 'deliberazione' )}
-                    {/case}
-                        
-                    {* visualizzazione figli default *}
-                    {case}
-                        {include uri='design:parts/openpa/amminsitrazione_trasparente/children.tpl'
-                                 nodes=$figli
-                                 nodes_count=$conteggio_figli}
-                    {/case}
-                {/switch}
+                {if and( is_set( $node.data_map.fields ), $node.data_map.fields.has_content )}
+				
+				  {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table_fields.tpl'                                 
+						   nodes=$figli
+						   nodes_count=$conteggio_figli
+						   fields=$node.data_map.fields.content}
+				
+				{else}
+				
+				  {* In base al remoteid vengono caricate le visualizzazioni tabellari o normali *}
+				  
+				  {switch match=$node.object.remote_id}
+					  
+					  {* Consulenti e collaboratori *}
+					  {case match='b5df51b035ee30375db371af76c3d9fb'} 
+						  {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'                                 
+								   nodes=$figli
+								   nodes_count=$conteggio_figli
+								   class='consulenza'}
+					  {/case}
+					  
+					  {* Incarichi amminsitrativi di vertice *}
+					  {case match='efc995388bebdd304f19eef17aab7e0d'} 
+						  {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
+								   nodes=$figli
+								   nodes_count=$conteggio_figli
+								   class='dipendente'}
+					  {/case}
+					  
+					  {* Dirigenti *}
+					  {case match='9eed77856255692eca75cdb849540c23'} 
+						  {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
+								   nodes=$figli
+								   nodes_count=$conteggio_figli
+								   class='dipendente'}
+					  {/case}
+					  
+					  {* Tassi di assenza *}
+					  {case match='c46fafba5730589c0b34a5fada7f3d07'} 
+						  {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
+								   nodes=$figli
+								   nodes_count=$conteggio_figli
+								   class='tasso_assenza'}
+					  {/case}
+					  
+					  {* Incarichi conferiti e autorizzati ai dipendenti *}
+					  {case match='b7286a151f027977fa080f78817c895a'} 
+						  {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
+								   nodes=$figli
+								   nodes_count=$conteggio_figli
+								   class='incarico'}
+					  {/case}
+					  
+					  {* Atti di concessione *}
+					  {case match='90b631e882ab0f966d03aababf3d9f15'} 
+						  {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl'
+								   nodes=$figli
+								   nodes_count=$conteggio_figli
+								   class=array( 'sovvenzione_contributo', 'determinazione', 'deliberazione' )}
+					  {/case}
+						  
+					  {* visualizzazione figli default *}
+					  {case}
+						  {include uri='design:parts/openpa/amminsitrazione_trasparente/children.tpl'
+								   nodes=$figli
+								   nodes_count=$conteggio_figli}
+					  {/case}
+				  {/switch}
+				
+				{/if}
             
             {elseif $nota|count()|eq(0)}
             {* se non c'è nemmeno la nota occorre esporre un alert *}
