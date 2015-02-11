@@ -36,7 +36,7 @@
             <li><strong>Nodo:</strong> {$node.node_id} <strong>Oggetto</strong> {$node.contentobject_id} ({$node.object.remote_id})</li>
             
             {if count( $node.object.assigned_nodes )|gt(1)}
-                <li><strong>Collocazioni:</strong> <ul>{foreach $node.object.assigned_nodes as $item}<li><a href={$item|ezurl()}>{$item.path_with_names}</a> {if $item.node_id|eq($node.object.main_node_id)}(principale){/if}</li>{/foreach}</ul></li>
+                <li><strong>Collocazioni:</strong> <ul>{foreach $node.object.assigned_nodes as $item}<li><a href={$item.url_alias|ezurl()}>{$item.path_with_names}</a> {if $item.node_id|eq($node.object.main_node_id)}(principale){/if}</li>{/foreach}</ul></li>
             {/if}
             
             {def $sezione = fetch( 'section', 'object', hash( 'section_id', $node.object.section_id ))}

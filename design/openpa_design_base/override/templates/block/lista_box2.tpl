@@ -6,6 +6,12 @@
 {if $block.name}
 	<h2 class="hide">{$block.name}</h2>	 
 {/if}
+
+{def $excludeClasses = hash()}
+{if count( openpaini( 'GestioneClassi', 'classi_da_escludere_dai_blocchi_ezflow', array() ) )|gt(0)}
+{set $excludeClasses = hash( 'class_filter_type', 'exclude', 'class_filter_array', openpaini( 'GestioneClassi', 'classi_da_escludere_dai_blocchi_ezflow' ) )}
+{/if}
+
 {if $valid_nodes_count|eq(1)}
 
 	<div class="border-box box-trans-gray box-lista">
@@ -15,7 +21,7 @@
 
 		<h2>{$valid_nodes[0].name|wash()}</h2>
 
-		{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[0].node_id, 'sort_by', $valid_nodes[0].sort_array, 'limit', 6 ) )}
+		{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[0].node_id, 'sort_by', $valid_nodes[0].sort_array, 'limit', 6 )|merge($excludeClasses) )}
 		{if $children|count()}
 			<ul>							 
 				{foreach $children as $child}
@@ -51,7 +57,7 @@
 
 			<h2>{$valid_nodes[0].name|wash()}</h2>
 
-			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[0].node_id,'sort_by', $valid_nodes[0].sort_array, 'limit', 6 ) )}
+			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[0].node_id,'sort_by', $valid_nodes[0].sort_array, 'limit', 6 )|merge($excludeClasses) )}
 			{if $children|count()}
 			
 				<ul>							 
@@ -86,7 +92,7 @@
 
 			<h2>{$valid_nodes[1].name|wash()}</h2>
 
-			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[1].node_id,'sort_by', $valid_nodes[0].sort_array, 'limit', 3 ) )}
+			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[1].node_id,'sort_by', $valid_nodes[0].sort_array, 'limit', 3 )|merge($excludeClasses) )}
 			{if $children|count()}
 				<ul>							 
 					{foreach $children as $child}
@@ -124,7 +130,7 @@
 		<div class="border-content">
 
 			<h2>{$valid_nodes[0].name|wash()}</h2>
-			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[0].node_id,'sort_by', $valid_nodes[0].sort_array, 'limit', 4 ) )}
+			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[0].node_id,'sort_by', $valid_nodes[0].sort_array, 'limit', 4 )|merge($excludeClasses) )}
 			{if $children|count()}
 				<ul>							 
 					{foreach $children as $child}
@@ -156,7 +162,7 @@
 
 			<h2>{$valid_nodes[1].name|wash()}</h2>
 
-			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[1].node_id,'sort_by', $valid_nodes[1].sort_array, 'limit', 3 ) )}
+			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[1].node_id,'sort_by', $valid_nodes[1].sort_array, 'limit', 3 )|merge($excludeClasses) )}
 			{if $children|count()}
 				<ul>							 
 					{foreach $children as $child}
@@ -189,7 +195,7 @@
 
 			<h2>{$valid_nodes[2].name|wash()}</h2>
 
-			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[2].node_id, 'sort_by', $valid_nodes[2].sort_array, 'limit', 3 ) )}
+			{set $children=fetch( 'content', 'list',  hash( 'parent_node_id', $valid_nodes[2].node_id, 'sort_by', $valid_nodes[2].sort_array, 'limit', 3 )|merge($excludeClasses) )}
 			{if $children|count()}
 			<ul>							 
 				{foreach $children as $child}
