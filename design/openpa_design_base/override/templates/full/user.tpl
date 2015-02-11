@@ -134,7 +134,7 @@
 					classes_figli=$classes_figli
 					classes_figli_escludi=$classes_figli_escludi
 					classes_parent_to_edit=$classes_parent_to_edit
-					title='Curriculum vitae'
+					title='Documenti'
 					classi_da_non_commentare=$classi_da_non_commentare
 					uri='design:parts/filtered_children.tpl'}
 

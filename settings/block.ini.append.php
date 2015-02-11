@@ -87,3 +87,13 @@ Name=Motori di ricerca
 ViewName[]
 ViewName[search_class_and_attributes]=Cerca per classe e attributi
 ViewName[search_free_ajax]=Ricerca libera
+
+[HTML]
+Name=Codice HTML
+ManualAddingOfItems=disabled
+CustomAttributes[]
+CustomAttributes[]=html
+CustomAttributeTypes[html]=text
+ViewList[]
+ViewList[]=html
+ViewName[html]=html
