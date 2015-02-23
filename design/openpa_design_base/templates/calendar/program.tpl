@@ -9,7 +9,10 @@ $(function() {
         changeYear: true,
         dateFormat: "dd-mm-yy",
         numberOfMonths: 1
-    });    
+    });
+    if (location.hash == '') {      
+      $("html, body").animate({ scrollTop: $("#today").offset().top });
+    }
 });
 {/literal}
 </script>
