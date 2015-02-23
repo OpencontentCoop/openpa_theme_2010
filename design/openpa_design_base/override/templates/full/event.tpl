@@ -148,12 +148,12 @@
     {def $iniziativa = false()}
     {if and( is_set($node.data_map.iniziativa), $node.data_map.iniziativa.has_content )}        
         {set $iniziativa = fetch( 'content', 'node', hash( 'node_id', $node.data_map.iniziativa.content.relation_list[0].node_id ) )}
-        {def $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $node.parent, 'params', hash( 'interval', 'P10D',
+        {def $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $node.parent, 'params', hash( 'interval', 'P6M',
                                                                                                                'filter', array( concat( '-meta_id_si:', $node.contentobject_id ) ),
                                                                                                                'Manifestazione', concat( $iniziativa.name ) )|merge( $view_parameters ) ) )}
     {else}
         {def $root = fetch( content, node, hash( node_id, ezini( 'NodeSettings', 'RootNode', 'content.ini' ) ) )
-             $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $root, 'params', hash( 'interval', 'P10D',
+             $calendarData = fetch( openpa, calendario_eventi, hash( 'calendar', $root, 'params', hash( 'interval', 'P6M',
                                                                                                                'filter', array( concat( '-meta_id_si:', $node.contentobject_id ) ),
                                                                                                                'Manifestazione', concat( $node.name ) )|merge( $view_parameters ) ) )}
     {/if}    
