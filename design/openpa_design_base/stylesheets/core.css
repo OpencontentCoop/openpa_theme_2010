@@ -565,14 +565,14 @@ div.block div.element /* Used if several objects are to be stacked horizontally 
     float: left;
 }
 
-div.block div.left /* Floats elements to the left in a block */
+div.block > div.left /* Floats elements to the left in a block */
 {
     width: 49%;
     float: left;
     clear: left;
 }
 
-div.block div.right /* Floats elements to the right in a block */
+div.block > div.right /* Floats elements to the right in a block */
 {
     width: 49%;
     float: right;

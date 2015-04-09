@@ -13,17 +13,15 @@
         <table cellspacing="0" class="list" summary="Elenco di {$node.name|wash()}">
             <thead>
                 <tr>
-                    <th>Tipo di contenuto</th>
                     <th>Link al dettaglio</th>
-                    <th>Data di aggiornamento</th>
+                    <th>Data di pubblicazione</th>
                 </tr>
             </thead>
             <tbody>
                 {foreach $nodes as $item}
                 <tr>
-                    <td>{$item.class_name}</td>
                     <td><a href={$item.url_alias|ezurl()} title="Vai al dettaglio di {$item.name|wash()}">{$item.name|wash()}</a></td>
-                    <td>{$item.object.modified|l10n(date)}</td>
+                    <td>{$item.object.published|l10n(date)} {if $item.object.modified|gt(sum($item.object.published,86400))}<br /><small>Ultima modifica: <strong>{$item.object.modified|l10n(date)}</small>{/if}</td>
                 </tr>
                 {/foreach}            
             </tbody>
@@ -41,7 +39,7 @@
                         <tr>
                             <th>Nominativo</th>
                             <th>Qualifica</th>
-                            <th>Dettaglio</th>                            
+                            <th>Data di pubblicazione</th>                         
                         </tr>
                     </thead>
                     <tbody>
@@ -56,9 +54,7 @@
                                 {/foreach}
                                 {undef $roles}
                             </td>
-                            <td>
-                                <a href={$item.url_alias|ezurl()} title="Vai al dettaglio di {$item.name|wash()}">Link al dettaglio delle informazioni</a>
-                            </td>                            
+                            <td>{$item.object.published|l10n(date)} {if $item.object.modified|gt(sum($item.object.published,86400))}<br /><small>Ultima modifica: <strong>{$item.object.modified|l10n(date)}</small>{/if}</td>                           
                         </tr>
                         {/foreach}            
                     </tbody>
@@ -70,17 +66,15 @@
                 <table cellspacing="0" class="list" summary="Elenco di {$node.name|wash()}">
                     <thead>
                         <tr>
-                            <th>Tipo di contenuto</th>
                             <th>Link al dettaglio</th>
-                            <th>Data di aggiornamento</th>
+                            <th>Data di pubblicazione</th>
                         </tr>
                     </thead>
                     <tbody>
                         {foreach $nodes as $item}
                         <tr>
-                            <td>{$item.class_name}</td>
                             <td><a href={$item.url_alias|ezurl()} title="Vai al dettaglio di {$item.name|wash()}">{$item.name|wash()}</a></td>
-                            <td>{$item.object.modified|l10n(date)}</td>
+                            <td>{$item.object.published|l10n(date)} {if $item.object.modified|gt(sum($item.object.published,86400))}<br /><small>Ultima modifica: <strong>{$item.object.modified|l10n(date)}</small>{/if}</td>
                         </tr>
                         {/foreach}            
                     </tbody>

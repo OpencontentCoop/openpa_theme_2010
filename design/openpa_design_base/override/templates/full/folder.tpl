@@ -5,8 +5,12 @@
     <div class="class-folder">
 
         <h1>{$node.name|wash()}</h1>
-	
     
+		{* DATA e ULTIMAMODIFICA *}
+		{include name = last_modified
+				 node = $node             
+				 uri = 'design:parts/openpa/last_modified.tpl'}	
+		
         {* EDITOR TOOLS *}
         {include name = editor_tools
                  node = $node             

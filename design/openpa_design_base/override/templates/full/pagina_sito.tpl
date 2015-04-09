@@ -19,9 +19,9 @@
         <h1>{attribute_view_gui attribute=$node.data_map.name}</h1>
 
         {* DATA e ULTIMAMODIFICA *}
-        {*include name = last_modified
+        {include name = last_modified
                  node = $node             
-                 uri = 'design:parts/openpa/last_modified.tpl'*}
+                 uri = 'design:parts/openpa/last_modified.tpl'}
     
         {* EDITOR TOOLS *}
         {include name = editor_tools

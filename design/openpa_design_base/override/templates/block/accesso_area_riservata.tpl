@@ -16,6 +16,9 @@
         
             <p>{$block.custom_attributes.testo}</p>
             
+            {if and( is_set($block.custom_attributes.signin), $block.custom_attributes.signin )}
+              {include name=smart_login redirect_uri=$area.url_alias uri='design:smartlogin/login.tpl'}
+            {else}
             <form method="post" action={"/user/login/"|ezurl} name="loginform">
                 <label for="id-{$block.id}-login">{"Username"|i18n("design/ezwebin/user/login",'User name')}</label><div class="labelbreak"></div>
                 <input class="halfbox" type="text" size="10" name="Login" id="id-{$block.id}-login" value="" tabindex="1" />
@@ -27,7 +30,7 @@
                 
                 <input type="hidden" name="RedirectURI" value="{$area.url_alias}" />
             </form>
-        
+            {/if}
         {/if}
     
     </div>

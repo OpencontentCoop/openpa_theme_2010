@@ -12,6 +12,7 @@
 				  <th>{$class.data_map[$identifier].name|wash()}</th>
 				{/if}
 			  {/foreach}
+			  <th>Data di pubblicazione</th>
 		  </tr>
 	  </thead>
 	  <tbody>
@@ -27,6 +28,7 @@
 				  </td>
 				{/if}
 			  {/foreach}
+			  <td>{$item.object.published|l10n(date)} {if $item.object.modified|gt(sum($item.object.published,86400))}<br /><small>Ultima modifica: <strong>{$item.object.modified|l10n(date)}</small>{/if}</td>
 		  </tr>
 		  {/if}
 		  {/foreach}            
