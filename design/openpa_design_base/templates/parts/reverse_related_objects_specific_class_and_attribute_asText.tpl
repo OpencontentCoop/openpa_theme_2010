@@ -32,23 +32,23 @@
                 {elseif $object.name|contains('Segretario generale')}
 				
                 {elseif $object.name|contains('Dirigente con Incarico Speciale')}
-                    presso {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
+                     {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
                 {elseif $object.name|contains('Capoufficio')}
-                    presso {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
+                     {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
                 {elseif $object.name|contains('Responsabile del polo sociale')}
-                    presso {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
+                     {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
                 {elseif $object.name|contains('Segretario di circoscrizione')}
-                    presso {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
+                     {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
                 {elseif $object.name|contains('Funzionario di sezione')}
-                    presso {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
+                     {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
                 {elseif $object.name|contains("Dirigente dell'area")}
                     "{attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}"
                 {elseif $object.name|contains('Dirigente del servizio')}
                     "{attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}"
                 {elseif $object.name|contains('Dirigente con Incarico Speciale')}
-                    presso {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
-                {else}
-                    presso {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
+                     {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
+                {elseif $object.data_map.struttura_di_riferimento.has_content}
+                     {attribute_view_gui  href=nolink attribute=$object.data_map.struttura_di_riferimento}
                 {/if}
 
             {elseif $classe|eq('struttura')} 
