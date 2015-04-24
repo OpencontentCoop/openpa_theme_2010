@@ -12,6 +12,10 @@
     {def $class_filter = $block.custom_attributes.class|explode(',')}
 {/if}
 
+{if $block.custom_attributes.attribute|ne('')}    
+    {def $attribute_filter = $block.custom_attributes.attribute|explode(',')}
+{/if}
+
 {def $limit=10}
 
 {def $node = fetch(content,node,hash(node_id,$node_id))
@@ -95,7 +99,8 @@ $(function() {
                 {/switch}
             {/if}
             {/foreach}
-        
+            
+            {if is_set($attribute_filter)|not()}
             <label for="Sort">Ordina per</label>
             <select id="Sort" name="Sort">
                 <option value=""> - Seleziona</option>
@@ -118,18 +123,23 @@ $(function() {
                     {/if}
                 {/foreach}
             </select>
+            {/if}
 
             {def $facets = array()
                  $filterParameter = false()}            
+            
+            {if is_set($attribute_filter)|not()}
             <div class="block-search-advanced-container square-box-soft-gray-2">
             <div class="block-search-advanced-link">
             
             <p>Ricerca avanzata</p>                
             
             <div class="block-search-advanced hide">
-                
+            {/if}
+            
             {foreach $class.data_map as $attribute}
             {if and($attribute.is_searchable, $attribute.identifier|ne('errors'), $attributi_da_escludere_dalla_ricerca|contains($attribute.identifier)|not())}
+                {if and( is_set($attribute_filter), $attribute_filter|contains($attribute.identifier)|not() )}{skip}{/if}
                 {switch match=$attribute.data_type_string}
                     
                     {case in=array('ezstring','eztext')}
@@ -180,6 +190,7 @@ $(function() {
             {/if}
             {/foreach}
             
+            {if is_set($attribute_filter)|not()}
             <fieldset>
                 <legend>Data di pubblicazione:</legend>
                 <label for="from">Dalla data: <small class="no-js-show"> (GG-MM-AAAA)</small>
@@ -187,6 +198,7 @@ $(function() {
                 <label for="to">Alla data: <small class="no-js-show"> (GG-MM-AAAA)</small>
                 <input class="to_picker" type="text" name="to" title="Alla data" value="" /></label>
             </fieldset>
+            {/if}
             
             <input name="filter[]" value="contentclass_id:{$class.id}" type="hidden" />
             <input name="OriginalNode" value="{$node.node_id}" type="hidden" />
@@ -284,12 +296,13 @@ $(function() {
                 
             {/if}
             
-            
+            {if is_set($attribute_filter)|not()}
             </div>
             
             </div>
             </div>
             {/if}
+        {/if}
     
         <input id="search-button-button" class="defaultbutton" type="submit" name="SearchButton" value="Cerca" />
         {$close}
