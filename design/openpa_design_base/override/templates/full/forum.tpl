@@ -124,15 +124,12 @@
         </table>
 
     </div>
-
-    </div>
-</div>
-{include name=navigator
-         uri='design:navigator/google.tpl'
-         page_uri=concat('/content/view','/full/',$node.node_id)
-         item_count=$topic_count
-         view_parameters=$view_parameters
-         item_limit=$page_limit}
+      {include name=navigator
+               uri='design:navigator/google.tpl'
+               page_uri=concat('/content/view','/full/',$node.node_id)
+               item_count=$topic_count
+               view_parameters=$view_parameters
+               item_limit=$page_limit}
 
     {include name=menu_control node=$node uri='design:parts/common/social_control.tpl'}
 
