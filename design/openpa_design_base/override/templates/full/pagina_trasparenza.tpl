@@ -59,6 +59,10 @@
             <em>{attribute_view_gui attribute=$nota[0].data_map.testo_nota}</em>
         </div>
         {/if}
+		
+		{if $node.object.remote_id|eq('5a2189cac55adf79ddfee35336e796fa')} {*grafico*}
+		  {include uri='design:parts/openpa/amminsitrazione_trasparente/grafico_enti_partecipati.tpl'}
+		{/if}
         
         {* Figli *}
         <div class="attributi-base">
@@ -154,13 +158,14 @@
             
             {/if}
             
-            {elseif $nota|count()|eq(0)}
+            {elseif and( $nota|count()|eq(0), $node.object.remote_id|ne('5a2189cac55adf79ddfee35336e796fa') )} 
                 {* se non c'è nemmeno la nota occorre esporre un alert *}
                 <div class="warning message-warning">
                     <p>Sezione in allestimento</p>
                 </div>
                 
             {/if}
+			
         </div>
 	
     </div>

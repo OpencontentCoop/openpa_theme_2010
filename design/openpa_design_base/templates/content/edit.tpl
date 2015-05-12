@@ -1,12 +1,4 @@
 {def $_redirect = false()}
-{if ezhttp_hasvariable( 'LastAccessesURI', 'session' )}
-    {set $_redirect = ezhttp( 'LastAccessesURI', 'session' )}
-{elseif $object.main_node_id}
-    {set $_redirect = concat( 'content/view/full/', $object.main_node_id )}
-{elseif ezhttp( 'url', 'get', true() )}
-    {set $_redirect = ezhttp( 'url', 'get' )}
-{/if}  
-
 <form enctype="multipart/form-data" method="post" action={concat("/content/edit/",$object.id,"/",$edit_version,"/",$edit_language|not|choose(concat($edit_language,"/"),''))|ezurl}>
 {include uri='design:parts/website_toolbar_edit.tpl'}
 <table class="layout" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -49,7 +41,14 @@
     {* include uri="design:content/edit_placement.tpl" *}
 
     {include uri="design:content/edit_attribute.tpl"}
-
+    {set $_redirect = false()}
+    {if ezhttp( 'from', 'get', true() )}
+        {set $_redirect = concat( 'openpa/object/', $object.id )}
+    {elseif ezhttp_hasvariable( 'LastAccessesURI', 'session' )}
+        {set $_redirect = ezhttp( 'LastAccessesURI', 'session' )}
+    {elseif ezhttp( 'url', 'get', true() )}
+        {set $_redirect = ezhttp( 'url', 'get' )}
+    {/if}  
     <div class="buttonblock">
         <input class="defaultbutton" type="submit" name="PublishButton" value="{'Send for publishing'|i18n('design/standard/content/edit')}" />
         <input class="button" type="submit" name="StoreButton" value="{'Store draft'|i18n('design/standard/content/edit')}" />
