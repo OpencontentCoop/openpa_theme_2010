@@ -7,57 +7,58 @@ $(function () {
 	$.getJSON( "/openpa/data/partecipazioni", function(response) {
 	  var enti = [];
 	  var series = [];	  
-	  if (typeof response.enti != 'undefined') {		
-		$.each( response.enti, function(i,v){ enti.push(v)});
-		$.each( response.series, function(i,v){
-		  series.push( {name:i,data:v} );
-		});	  
-		$('#grafico_enti').highcharts({
-			chart: {
-				type: 'bar'
-			},
-			title: {
-				text: ''
-			},
-			xAxis: {
-				categories: enti,
-				title: {
-					text: null
-				}
-			},
-			yAxis: {
-				min: 0,
-				max: 100,
-				title: {
-					text: 'Percentuale di partcipazione',
-					align: 'high'
-				},
-				labels: {
-					overflow: 'justify'
-				}
-			},
-			tooltip: {
-				valueSuffix: ' %'
-			},
-			plotOptions: {
-				bar: {
-					dataLabels: {
-						enabled: true
-					}
-				}
-			},
-			legend: {			  
-				borderWidth: 1,
-				backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-				shadow: true
-			},
-			credits: {
-				enabled: false
-			},
-			series: series
-		});
+	  var length = $.map(response.enti, function(n, i) { return i; }).length;
+    if (typeof response.enti != 'undefined' && length > 0) {		
+      $.each( response.enti, function(i,v){ enti.push(v)});
+      $.each( response.series, function(i,v){
+        series.push( {name:i,data:v} );
+      });	  
+      $('#grafico_enti').highcharts({
+        chart: {
+          type: 'bar'
+        },
+        title: {
+          text: ''
+        },
+        xAxis: {
+          categories: enti,
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          min: 0,
+          max: 100,
+          title: {
+            text: 'Percentuale di partcipazione',
+            align: 'high'
+          },
+          labels: {
+            overflow: 'justify'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' %'
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        legend: {			  
+          borderWidth: 1,
+          backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+          shadow: true
+        },
+        credits: {
+          enabled: false
+        },
+        series: series
+      });
 	  }else{
-		$('#grafico_enti').hide();
+      $('#grafico_enti').hide();
 	  }
 	});
 });

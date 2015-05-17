@@ -50,7 +50,7 @@
                                 {def $roles = fetch( 'openpa', 'ruoli', hash( 'dipendente_object_id', $item.contentobject_id ) )}
                                 {foreach $roles as $role}
                                     {$role.name|wash()}
-                                    {delimiter}, {/delimiter}
+                                    {delimiter}<br />{/delimiter}
                                 {/foreach}
                                 {undef $roles}
                             </td>
