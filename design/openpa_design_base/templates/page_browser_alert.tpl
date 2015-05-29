@@ -1,3 +1,16 @@
+{ezscript_require(array('cookiechoices.js'))}
+{literal}
+<script>
+document.addEventListener('DOMContentLoaded', function(event) {
+cookieChoices.showCookieConsentBar(
+"I cookie ci aiutano ad erogare servizi di qualità. Utilizzando i nostri servizi, l'utente accetta le nostre modalità d'uso dei cookie.",
+'OK',
+'Maggiori informazioni',
+'{/literal}{'openpa/cookie'|ezurl(no,full)}{literal}'
+);});
+</script>
+{/literal}
+
 {def $is_depracated = false()
      $deprecated = openpaini( 'Accessibilita', 'BrowserDeprecato', array() )
      $deprecated_browsers = hash()
