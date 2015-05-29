@@ -12,7 +12,7 @@
 {/if}
 {cache-block expiry=86400 keys=array( $module_result.uri, $user_hash, $extra_cache_key, $cookies|implode(',') )}
 {def $browser          = checkbrowser('checkbrowser')     
-     $pagedata         = ezpagedata()
+     $pagedata         = openpapagedata()
      $pagestyle        = $pagedata.css_classes
      $locales          = fetch( 'content', 'translation_list' )
      $pagedesign       = $pagedata.template_look
@@ -108,7 +108,7 @@ document.body.className = c;
 {cache-block expiry=86400 keys=array( $module_result.uri, $user_hash, $extra_cache_key )}
 
     {if is_unset($pagedesign)}
-        {def $pagedata   = ezpagedata()
+        {def $pagedata   = openpapagedata()
              $pagedesign = $pagedata.template_look}
     {/if}
 
@@ -126,6 +126,10 @@ document.body.className = c;
     {/if}        
     {include uri='design:page_footer.tpl'}
 </div>
+
+{if is_set( $pagedata.homepage.data_map.sensor_footer_banner )}
+{include uri='design:parts/sensor_footer_banner.tpl' url=$pagedata.homepage.data_map.sensor_footer_banner.content name=sensor_ad}
+{/if}
 
 {include uri='design:page_footer_script.tpl'}
 {/cache-block}

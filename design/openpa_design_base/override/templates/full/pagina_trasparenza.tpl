@@ -74,8 +74,15 @@
                                                                                'class_filter_array', $classi_trasparenza ) )}                
               {include uri='design:parts/openpa/amminsitrazione_trasparente/children.tpl'
                        nodes=$figli_pagina_trasparenza
-                       nodes_count=$conteggio_figli_pagina_trasparenza}            
-          
+                       nodes_count=$conteggio_figli_pagina_trasparenza}
+                       
+              {if and( $conteggio_figli|gt(0), $node.object.remote_id|eq('e2bf2c1845a1f01bccff822dee58c05a') )} {*Accessibilità e Catalogo di dati, metadati e banche dati*}
+                {def $figli = fetch( 'content', 'list', hash( 'limit', openpaini( 'GestioneFigli', 'limite_paginazione', 25 ), 'offset', $view_parameters.offset, 'parent_node_id', $node.object.main_node_id, 'sort_by', $node.sort_array, 'class_filter_type', 'exclude', 'class_filter_array', $classi_trasparenza|merge( $classi_note_trasparenza ) ) )}
+                {include uri='design:parts/openpa/amminsitrazione_trasparente/children.tpl'
+                     nodes=$figli
+                     nodes_count=$conteggio_figli}
+              {/if}
+        
           {elseif $conteggio_figli|gt(0)}            
                 
             {if and( is_set( $node.data_map.fields ), $node.data_map.fields.has_content )}
