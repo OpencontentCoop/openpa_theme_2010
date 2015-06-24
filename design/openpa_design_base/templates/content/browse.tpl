@@ -186,8 +186,14 @@
             <tr>
                 <td colspan="2">{'Switch top levels by clicking one of these items.'|i18n('design/standard/content/browse')}</td>
             </tr>
-    
-            {section name=TopLevel loop=$browse.top_level_nodes
+			
+			{def $amministrazione_trasparente = fetch( 'content', 'object', hash( 'remote_id', '5399ef12f98766b90f1804e5d52afd75' ))}
+			{def $top_level_nodes = $browse.top_level_nodes}
+			{if $amministrazione_trasparente}
+			  {set $top_level_nodes = $top_level_nodes|append( $amministrazione_trasparente.main_node_id )}
+			{/if}  
+			
+            {section name=TopLevel loop=$top_level_nodes
                      sequence=array(bgdark,bglight)}
             <tr class="{$:sequence}">
                 {let top_node=fetch( content, node, hash( node_id, $:item ) )}
@@ -221,7 +227,7 @@
             </tr>
             {/section}
     
-            {*<tr>
+            <tr>
                 <th colspan="2">{"Bookmarks"|i18n("design/standard/content/browse")}</th>
             </tr>
     
@@ -267,7 +273,7 @@
                                 '%personalname',concat('<i>','Personal'|i18n('design/standard/content/browse'),'</i>')))}
                 </td>
             </tr>
-            {/section}*}
+            {/section}
     
             <tr height="6"><td></td></tr>
     

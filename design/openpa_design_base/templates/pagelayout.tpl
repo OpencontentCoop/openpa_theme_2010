@@ -127,8 +127,8 @@ document.body.className = c;
     {include uri='design:page_footer.tpl'}
 </div>
 
-{if is_set( $pagedata.homepage.data_map.sensor_footer_banner )}
-{include uri='design:parts/sensor_footer_banner.tpl' url=$pagedata.homepage.data_map.sensor_footer_banner.content name=sensor_ad}
+{if and( $ui_context|ne( 'edit' ), $ui_context|ne( 'browse' ), is_set( $pagedata.homepage.data_map.sensor_footer_banner ) )} 
+{include uri='design:parts/sensor_footer_banner.tpl' url=$pagedata.homepage.data_map.sensor_footer_banner.content banner=$pagedata.homepage.data_map.sensor_footer_banner name=sensor_ad}
 {/if}
 
 {include uri='design:page_footer_script.tpl'}

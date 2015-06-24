@@ -130,6 +130,23 @@
                   
         
         </ul>
+		
+		{* NEWSLETTER *}
+		{def $newsletter_edition_hash = newsletter_edition_hash()}
+		{if and( $node|can_add_to_newsletter(), $newsletter_edition_hash|count()|gt(0) )}
+            <form action={concat("/openpa/addlocationto/",$node.contentobject_id)|ezurl} method="post">
+			  <fieldset>
+				<legend>Aggiungi alla prossima newsletter:</legend>
+                <select name="SelectedNodeIDArray[]">
+                {foreach $newsletter_edition_hash as $edition_id => $edition_name}
+                    <option value="{$edition_id}">{$edition_name|wash()}</option>
+                {/foreach}
+                </select>
+                <input class="defaultbutton" type="submit" name="AddLocation" value="Aggiungi" />
+			  </fieldset>
+            </form>            
+        {/if}
+		{undef $newsletter_edition_hash}
 
         {* TIENIMI AGGIORNATO *}
 		{if and( $logged_user.is_logged_in, $node.object.content_class.is_container, fetch( 'user', 'has_access_to', hash( 'module', 'notification', 'function', 'use' ) ) )}
@@ -138,7 +155,15 @@
 			  <input type="hidden" name="ContentNodeID" value="{$node.node_id}" />
 		  </form>            
 		{/if}
-        
+		
+		{*PREFERITI*}
+		{if fetch( 'user', 'has_access_to', hash( 'module', 'content', 'function', 'bookmark' ) )}
+		  <form method="post" action={'content/action'|ezurl}>
+		  <input type="hidden" name="ContentNodeID" value="{$node.node_id}" />
+		  <input class="defaultbutton" type="submit" name="ActionAddToBookmarks" value="Aggiungi ai Preferiti" title="{'Add the current item to your bookmarks.'|i18n( 'design/admin/pagelayout' )}" />
+		  </form>	  
+		{/if}
+		
 		</div>
 	{/if}
 {/if}
