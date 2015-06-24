@@ -1,4 +1,4 @@
-{ezscript_require(array('cookiechoices.js'))}
+<script src="{'javascript/cookiechoices.js'|ezdesign(no)}"></script>
 {literal}
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
