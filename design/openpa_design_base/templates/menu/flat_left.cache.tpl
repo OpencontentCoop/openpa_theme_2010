@@ -1,6 +1,9 @@
 {def $left_menu_depth = count($pagedata.path_array)|gt(1)|choose( 0, 1 )}
+{if and( $left_menu_depth|eq(1), $pagedata.path_array[0].node_id|ne( ezini( 'NodeSettings', 'RootNode', 'content.ini' ) ) )}  
+  {set $left_menu_depth = 0}  
+{/if}
 {if is_area_tematica()}
-    {set $left_menu_depth = inc( $left_menu_depth )}
+  {set $left_menu_depth = inc( $left_menu_depth )}
 {/if}
 
 {def $left_menu_root_node = $pagedata.path_array[$left_menu_depth]
