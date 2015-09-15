@@ -26,27 +26,31 @@
                  uri = 'design:parts/openpa/attributi_base.tpl'
                  node = $node}
 
+        {if $node|find_first_parent( 'pagina_trasparenza' )}
+          {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl' nodes=fetch_alias( 'children', hash( 'parent_node_id', $node.node_id,'sort_by', $node.sort_array, 'load_data_map', false() ) ) nodes_count=fetch_alias( 'children_count', hash( 'parent_node_id', $node.node_id ) ) class=''}
         
-        {def $children_count = fetch_alias( 'children_count', hash( 'parent_node_id', $node.node_id ) )
-             $page_limit = openpaini( 'GestioneFigli', 'limite_paginazione', 25 )}
-             
-        {if $children_count|gt(0)}
-            {foreach fetch_alias( 'children', hash( 'parent_node_id', $node.node_id,
-                                                    'offset', $view_parameters.offset,
-                                                    'sort_by', $node.sort_array,
-                                                    'limit', $page_limit ) ) as $child max $page_limit sequence array( 'col-odd', 'col-even' ) as $style}                
-                <div class="{$style} col col-notitle float-break">
-                    <div class="col-content"><div class="col-content-design {$child|access_style()}">
-                        {node_view_gui view='line' show_image='no' content_node=$child}
-                    </div></div>
-                </div>
-            {/foreach}
-            {include name=navigator
-                     uri='design:navigator/google.tpl'
-                     page_uri=$node.url_alias
-                     item_count=$children_count
-                     view_parameters=$view_parameters
-                     item_limit=$page_limit}
+        {else}
+          {def $children_count = fetch_alias( 'children_count', hash( 'parent_node_id', $node.node_id ) )
+               $page_limit = openpaini( 'GestioneFigli', 'limite_paginazione', 25 )}
+          
+          {if $children_count|gt(0)}
+              {foreach fetch_alias( 'children', hash( 'parent_node_id', $node.node_id,
+                                                      'offset', $view_parameters.offset,
+                                                      'sort_by', $node.sort_array,
+                                                      'limit', $page_limit ) ) as $child max $page_limit sequence array( 'col-odd', 'col-even' ) as $style}                
+                  <div class="{$style} col col-notitle float-break">
+                      <div class="col-content"><div class="col-content-design {$child|access_style()}">
+                          {node_view_gui view='line' show_image='no' content_node=$child}
+                      </div></div>
+                  </div>
+              {/foreach}
+              {include name=navigator
+                       uri='design:navigator/google.tpl'
+                       page_uri=$node.url_alias
+                       item_count=$children_count
+                       view_parameters=$view_parameters
+                       item_limit=$page_limit}
+          {/if} 
         {/if} 
 
         

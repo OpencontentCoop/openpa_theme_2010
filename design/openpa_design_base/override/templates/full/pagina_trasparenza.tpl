@@ -81,9 +81,10 @@
                 {include uri='design:parts/openpa/amminsitrazione_trasparente/children.tpl'
                      nodes=$figli
                      nodes_count=$conteggio_figli}
-              {/if}
-        
-          {elseif $conteggio_figli|gt(0)}            
+              {/if}            
+          {/if}
+          
+          {if $conteggio_figli|gt(0)}            
                 
             {if and( is_set( $node.data_map.fields ), $node.data_map.fields.has_content )}
             
