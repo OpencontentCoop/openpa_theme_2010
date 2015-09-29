@@ -107,6 +107,7 @@
 			{if $servizi_correlati|count()}						
 			<ul class="servizi_correlati">
 			{foreach $servizi_correlati as $object_correlato}
+			{if $object_correlato.can_read|not()}{skip}{/if}
 				{if $object_correlato.id|ne($node.contentobject_id)}					
                     {if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
 					   <li>
@@ -124,6 +125,7 @@
 			{if $incarichi_correlati|count()}						
 			<ul class="incarichi_correlati">
 			{foreach $incarichi_correlati as $incarico}
+			{if $incarico.can_read|not()}{skip}{/if}
 				{if $incarico.id|ne($node.contentobject_id)}					
                     {if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($incarico.section_id)}
 					   <li>
@@ -153,7 +155,8 @@
 						{if or( $incarico_uffici_correlati|count(), $incarico_altre_strutture_correlate|count(), $incarico_strutture_correlate|count() )}
 							<ul class="altri_correlati">
 							{if $incarico_uffici_correlati|count()}	
-								{foreach $incarico_uffici_correlati as $object_correlato}																	
+								{foreach $incarico_uffici_correlati as $object_correlato}
+								{if $object_correlato.can_read|not()}{skip}{/if}
 									{if $object_correlato.id|ne($node.contentobject_id)}										
                                         {if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
 										{set $done = $done|append($object_correlato.id)}
@@ -180,6 +183,7 @@
 											<ul>
 											{if $incarico_ufficio_altre_strutture_correlate|count()}	
 												{foreach $incarico_ufficio_altre_strutture_correlate as $object_correlato_}
+												{if $object_correlato_.can_read|not()}{skip}{/if}
 												{if $object_correlato_.id|ne($node.contentobject_id)}
 												{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato_.section_id)}
 												{set $done = $done|append($object_correlato_.id)}
@@ -198,6 +202,7 @@
 											{/if}
 											{if $incarico_ufficio_strutture_correlate|count()}	
 														{foreach $incarico_ufficio_strutture_correlate as $object_correlato_}
+														{if $object_correlato_.can_read|not()}{skip}{/if}
 															{if $object_correlato_.id|ne($node.contentobject_id)}
 																{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato_.section_id)}
 																{set $done = $done|append($object_correlato_.id)}
@@ -224,6 +229,7 @@
 							
 							{if $incarico_altre_strutture_correlate|count()}	
 								{foreach $incarico_altre_strutture_correlate as $object_correlato}
+								{if $object_correlato.can_read|not()}{skip}{/if}
 									{if $object_correlato.id|ne($node.contentobject_id)}
 										{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
 										{set $done = $done|append($object_correlato.id)}
@@ -243,6 +249,7 @@
 							
 							{if $incarico_strutture_correlate|count()}	
 								{foreach $incarico_strutture_correlate as $object_correlato}
+								{if $object_correlato.can_read|not()}{skip}{/if}
 									{if $object_correlato.id|ne($node.contentobject_id)}
 										{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
 										{set $done = $done|append($object_correlato.id)}
@@ -273,6 +280,7 @@
 			{if $uffici_correlati|count()}						
 			<ul class="uffici_correlati">
 			{foreach $uffici_correlati as $ufficio}
+			{if $ufficio.can_read|not()}{skip}{/if}
 				{if $ufficio.id|ne($node.contentobject_id)}
 					{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($ufficio.section_id)}
 					{if $done|contains($ufficio.id)|not()}
@@ -301,6 +309,7 @@
 							<ul>
 							{if $ufficio_strutture_correlate|count()}	
 								{foreach $ufficio_strutture_correlate as $object_correlato}
+								{if $object_correlato.can_read|not()}{skip}{/if}
 									{if $object_correlato.id|ne($node.contentobject_id)}
 									{if $object_correlato.data_map.struttura.has_content|not()}
 										{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
@@ -326,6 +335,7 @@
 											{if $ufficio_strutture_strutture_correlate|count()}
 											<ul>	
 											{foreach $ufficio_strutture_strutture_correlate as $object_correlato}
+											{if $object_correlato.can_read|not()}{skip}{/if}
 											  {if $object_correlato.id|ne($node.contentobject_id)}
 											   {if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
 											   {if $done|contains($object_correlato.id)|not()}
@@ -356,6 +366,7 @@
 							{*
 							{if $ufficio_altre_strutture_correlate|count()}	
 								{foreach $ufficio_altre_strutture_correlate as $object_correlato}
+								{if $object_correlato.can_read|not()}{skip}{/if}
 									{if $object_correlato.id|ne($node.contentobject_id)}
 										{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
 										{set $done = $done|append($object_correlato.id)}
@@ -387,6 +398,7 @@
 			{if $strutture_correlate|count()}						
 			<ul> 
 			{foreach $strutture_correlate as $object_correlato}
+			{if $object_correlato.can_read|not()}{skip}{/if}
 				{if $object_correlato.id|ne($node.contentobject_id)}
 				{if $object_correlato.data_map.struttura.has_content|not()}
 					{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
@@ -411,6 +423,7 @@
 							{if $strutture_strutture_correlate|count()}
 							<ul>	
 								{foreach $strutture_strutture_correlate as $object_correlato}
+								{if $object_correlato.can_read|not()}{skip}{/if}
 									{if $object_correlato.id|ne($node.contentobject_id)}
 										{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
 										{if $done|contains($object_correlato.id)|not()}
@@ -439,7 +452,8 @@
 				{/if}
 				{/if}
 			{/foreach}
-			{foreach $strutture_correlate as $object_correlato}	
+			{foreach $strutture_correlate as $object_correlato}
+			{if $object_correlato.can_read|not()}{skip}{/if}
 				{if $object_correlato.data_map.struttura.has_content}
 						{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}
 						{if $done|contains($object_correlato.id)|not()}
@@ -466,6 +480,7 @@
 			{if $altre_strutture_correlate|count()}						
 			<ul>
 			{foreach $altre_strutture_correlate as $object_correlato}
+			{if $object_correlato.can_read|not()}{skip}{/if}
 				{if $object_correlato.id|ne($node.contentobject_id)}
 				{*if $object_correlato.data_map.struttura.has_content|not()*}
 					{if openpaini( 'GestioneSezioni', 'sezioni_per_tutti', array() )|contains($object_correlato.section_id)}

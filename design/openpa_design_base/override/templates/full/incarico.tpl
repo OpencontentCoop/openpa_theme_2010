@@ -211,9 +211,10 @@
     
     
     {* ------------------------------- responsabile dal ruolo------------------------------- *}
-        {* Ricerca del Responsabile tramite gli oggetti correlati inversamente secondo 'extended_attribute_filter' *}
-    
-        {def $resp_correlati_byrole = fetch('content','list', hash('parent_node_id', $role_folder_responsabili_incarico, 'extended_attribute_filter', 
+      {include struttura=$node style=$style icon=true uri='design:parts/ruoli_per_struttura.tpl'}
+        
+        {* Ricerca del Responsabile tramite gli oggetti correlati inversamente secondo 'extended_attribute_filter' *}      
+        {*def $resp_correlati_byrole = fetch('content','list', hash('parent_node_id', $role_folder_responsabili_incarico, 'extended_attribute_filter', 
                                          hash('id', 'ObjectRelationFilter', 
                                           'params', array($role_struttura_attribute_ID,$node.object.id) 
                                           ) ) )}
@@ -237,7 +238,7 @@
                     {/if}		
                 </div></div>
             </div>	
-        {/if}
+        {/if*}
     
     
         
