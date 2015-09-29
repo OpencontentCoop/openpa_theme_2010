@@ -25,7 +25,7 @@
 
     {if is_area_tematica()}
         {*include uri='design:menu/cached/leftmenu.tpl' root_node_id=$left_menu_root_node.node_id*}
-        {left_menu_cached( hash( 'root_node_id', $left_menu_root_node.node_id, 'user_hash', $user_hash ) )}
+        {left_menu_cached( hash( 'root_node_id', is_area_tematica().node_id, 'user_hash', $user_hash ) )}
     {else}
         {def $custom_templates_classes = openpaini( 'SideMenu', 'CachedMenuCustomTemplateClassi', array() )
              $custom_templates_nodes = openpaini( 'SideMenu', 'CachedMenuCustomTemplateNodi', array() )}
