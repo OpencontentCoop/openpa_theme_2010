@@ -58,33 +58,34 @@
 		<input type="hidden" value="{$valutazione.main_node.node_id}" name="ContentNodeID"/>
 		<input type="hidden" value="{$valutazione.id}" name="ContentObjectID"/>
 		<div class="right">
-		  
-		  {ezcss_require( array( 'nxc.captcha.css' ) )}
-		  {ezscript_require( array( 'nxc.captcha.js' ) )}
-		  
-		  {def $attribute = $data_map.antispam
-			   $class_content = $attribute.contentclass_attribute.content
-			   $collection_attribute = $collection_attributes[$attribute.id]
-			   $regenerate = 1}
-		  {if ezhttp( 'ActionCollectInformation', 'post', true() )}
-			  {set $regenerate = 0}
-		  {/if}
-		  
-		  {if eq( $collection_attribute.data_int, 0 )}                                        
-			<label for="nxc-captcha-collection-input-{$attribute.id}" class="control-label">Antispam</label>
-			<p>
-			  <img id="nxc-captcha-{$attribute.id}" alt="{'Secure code'|i18n( 'extension/nxc_captcha' )}" title="{'Secure code'|i18n( 'extension/nxc_captcha' )}" src="{concat( 'nxc_captcha/get/', $attribute.contentclass_attribute.id, '/nxc_captcha_collection_attribute_', $attribute.id, '/', $regenerate )|ezurl( 'no' )}" />
-			  <a href="{concat( 'nxc_captcha/get/', $attribute.contentclass_attribute.id, '/nxc_captcha_collection_attribute_', $attribute.id, '/1' )|ezurl( 'no' )}" class="nxc-captcha-regenerate" id="nxc-captcha-regenerate-{$attribute.id}">Ricarica</a>
-			</p>
-			<p>
-			  <input class="captcha-input form-control" id="nxc-captcha-collection-input-{$attribute.id}" type="text" name="nxc_captcha_{$attribute.id}" value="{$collection_attribute.data_text}" size="{$class_content.length.value}" maxlength="{$class_content.length.value}" />
-			</p>
-		  {else}
-			{*<p>{'Secure code is allready entered'|i18n( 'extension/nxc_captcha' )}</p>*}
-			<input type="hidden" name="nxc_captcha_{$attribute.id}" value="{$collection_attribute.data_text}" />                        
-		  {/if}
-		  
-		  {undef $attribute $class_content $collection_attribute $regenerate}
+
+			{if is_set($data_map.antispam)}
+				{if $data_map.antispam.data_type_string|eq('ocrecaptcha')}
+					<div class="block float-break">
+						<label class="grouplabel">{$data_map.antispam.contentclass_attribute_name|wash()}</label>
+						<div style="float: left">{attribute_view_gui attribute=$node.data_map.antispam}</div>
+					</div>
+				{else}
+					{ezcss_require( array( 'nxc.captcha.css' ) )}
+					{ezscript_require( array( 'nxc.captcha.js' ) )}
+
+					{def $attribute = $data_map.antispam
+					$class_content = $attribute.contentclass_attribute.content
+					$regenerate = 1}
+
+					<div class="block float-break">
+						<label class="grouplabel">
+							<img id="nxc-captcha-{$attribute.id}" alt="{'Secure code'|i18n( 'extension/nxc_captcha' )}" title="{'Secure code'|i18n( 'extension/nxc_captcha' )}" src="{concat( 'nxc_captcha/get/', $attribute.contentclass_attribute.id, '/nxc_captcha_collection_attribute_', $attribute.id, '/', $regenerate )|ezurl( 'no' )}" />
+							<br /><a href="{concat( 'nxc_captcha/get/', $attribute.contentclass_attribute.id, '/nxc_captcha_collection_attribute_', $attribute.id, '/1' )|ezurl( 'no' )}" class="nxc-captcha-regenerate" id="nxc-captcha-regenerate-{$attribute.id}">Ricarica</a>
+						</label>
+						<input class="captcha-input halfbox" id="nxc-captcha-collection-input-{$attribute.id}" type="text" name="nxc_captcha_{$attribute.id}" value="" size="{$class_content.length.value}" maxlength="{$class_content.length.value}" />
+						<br ><em>Inserisci il codice di sicurezza che vedi nell'immagine per proteggere il sito dallo spam</em>
+					</div>
+				{/if}
+
+
+				{undef $attribute $class_content $regenerate}
+			{/if}
 		  
 		  <input class="defaultbutton" type="submit" value="Invia la valutazione" name="ActionCollectInformation"/>
 		</div>
