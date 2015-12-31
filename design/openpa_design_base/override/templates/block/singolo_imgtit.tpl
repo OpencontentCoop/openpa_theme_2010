@@ -2,7 +2,12 @@
 
 <div class="block-type-singolo block-{$block.view}">
     <div class="attribute-image">
-        {attribute_view_gui href=$valid_node.url_alias|ezurl() attribute=$valid_node.data_map.image image_class='large'}
+        {if $valid_node.class_identifier|eq('link')}
+            {attribute_view_gui href=$valid_node.data_map.location.content|ezurl() attribute=$valid_node.data_map.image image_class='large'}
+        {else}
+            {attribute_view_gui href=$valid_node.url_alias|ezurl() attribute=$valid_node.data_map.image image_class='large'}
+        {/if}
+
     </div>
 
     <div class="trans-background">&nbsp;</div>
