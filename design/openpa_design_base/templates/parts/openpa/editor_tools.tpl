@@ -132,6 +132,7 @@
         </ul>
 		
 		{* NEWSLETTER *}
+        {if ezmodule('newsletter','subscribe')}
 		{def $newsletter_edition_hash = newsletter_edition_hash()}
 		{if and( $node|can_add_to_newsletter(), $newsletter_edition_hash|count()|gt(0) )}
             <form action={concat("/openpa/addlocationto/",$node.contentobject_id)|ezurl} method="post">
@@ -147,6 +148,7 @@
             </form>            
         {/if}
 		{undef $newsletter_edition_hash}
+        {/if}
 
         {* TIENIMI AGGIORNATO *}
 		{if and( $logged_user.is_logged_in, $node.object.content_class.is_container, fetch( 'user', 'has_access_to', hash( 'module', 'notification', 'function', 'use' ) ) )}
