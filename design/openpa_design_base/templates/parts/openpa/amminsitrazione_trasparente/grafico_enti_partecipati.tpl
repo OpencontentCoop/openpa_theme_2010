@@ -20,7 +20,7 @@
       var $container = $(this);
       var $prev = $container.prev();
       var remote = $(this).data('remote');
-      $.getJSON("/openpa/data/partecipazioni/?parent="+remote, function (response) {
+      $.getJSON("/openpa/data/partecipazioni/?remote="+remote, function (response) {
         var enti = [];
         var series = [];
         var length = $.map(response.enti, function (n, i) {
