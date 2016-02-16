@@ -1,6 +1,6 @@
 {ezpagedata_set( 'extra_menu', false() )}
 {def $sortString = 'published-desc'
-     $default_filters = array( concat( 'submeta_argomento___id_si:', $node.contentobject_id ) )
+     $default_filters = array( concat( solr_meta_subfield('argomento','id'),':', $node.contentobject_id ) )
      $facets = array(        
         hash( 'field', 'meta_class_identifier_ms', 'name', 'Tipologia_di_contenuto', 'limit', 100, 'sort', 'alpha' )
      )

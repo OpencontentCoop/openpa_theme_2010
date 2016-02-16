@@ -157,14 +157,14 @@ $(function() {
             {if and($attribute.is_searchable, $attribute.identifier|ne('errors'), $attributi_da_escludere_dalla_ricerca|contains($attribute.identifier)|not())}
                 {switch match=$attribute.data_type_string}
                     {case in=array('ezstring','eztext')}
-                       {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', concat( 'attr_', $attribute.identifier, '_s' ) ) )}
+                       {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', solr_field( $attribute.identifier, 'string' ) ) )}
                     {/case}
                     {case in=array('ezdate', 'ezdatetime')}
-                        {set $filter_string = concat( 'attr_', $attribute.identifier, '_dt' )}
+                        {set $filter_string = solr_field( $attribute.identifier, 'date' )}
                         {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', $filter_string ) )}
                     {/case}
                     {case in=array('ezinteger')}
-                        {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', concat( 'attr_', $attribute.identifier, '_si' ) ) )}
+                        {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', solr_field( $attribute.identifier, 'sint' ) ) )}
                     {/case}
                     {case}{/case}
             {/switch}
@@ -206,14 +206,14 @@ $(function() {
             {switch match=$attribute.data_type_string}
                 
                 {case in=array('ezstring','eztext')}
-                {set $filterParameter = getFilterParameter( concat( 'attr_', $attribute.identifier, '_t' ) )}
+                {set $filterParameter = getFilterParameter( solr_field( $attribute.identifier, 'text' ) )}
                     <label for="{$attribute.identifier}">{$attribute.name}</label>
-                    <input id="{$attribute.identifier}" type="text" name="filter[{concat( 'attr_', $attribute.identifier, '_t' )}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]}{/if}" />
+                    <input id="{$attribute.identifier}" type="text" name="filter[{solr_field( $attribute.identifier, 'text' )}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]}{/if}" />
                 {/case}
                 
                 {case in=array('ezobjectrelationlist')}
                     
-                    {set $facets = $facets|append( hash( 'field', concat( 'submeta_', $attribute.identifier, '___main_node_id_si' ), 'name', $attribute.name, 'limit', 10 ) )}
+                    {set $facets = $facets|append( hash( 'field', solr_meta_subfield( $attribute.identifier, 'main_node_id' ), 'name', $attribute.name, 'limit', 10 ) )}
                    {*
                     {if $attribute.identifier|eq('')}
                     {/if}
@@ -271,7 +271,7 @@ $(function() {
                 
                 
                 {case in=array('ezdate', 'ezdatetime')}
-                    {set $filter_string = concat( 'attr_', $attribute.identifier, '_dt' )}
+                    {set $filter_string = solr_field( $attribute.identifier, 'date' )}
                     {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', $filter_string ) )}
                     {if $attribute.identifier|eq('data_archiviazione')|not()}
 	                    <fieldset>
@@ -294,11 +294,11 @@ $(function() {
                                 {/foreach}
                         </select>
                     {else}
-                        {set $filterParameter = getFilterParameter( concat( 'attr_', $attribute.identifier, '_si' ) )}
+                        {set $filterParameter = getFilterParameter( solr_field( $attribute.identifier, 'sint' ) )}
                         <label for="{$attribute.identifier}">{$attribute.name}</label>
-                        <input id="{$attribute.identifier}" size="5" type="text" name="filter[{concat( 'attr_', $attribute.identifier, '_si' )}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]}{/if}" />
+                        <input id="{$attribute.identifier}" size="5" type="text" name="filter[{solr_field( $attribute.identifier, 'sint' )}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]}{/if}" />
                     {/if}
-                    {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', concat( 'attr_', $attribute.identifier, '_si' ) ) )}
+                    {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', solr_field( $attribute.identifier, 'sint' ) ) )}
                 {/case}            
                 
                 {*case in=array('ezgmaplocation')}

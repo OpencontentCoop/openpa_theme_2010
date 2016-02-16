@@ -58,13 +58,13 @@ $(document).ready(function(){
         {if and( $attribute.is_searchable, $attribute.identifier|ne('errors'), $attributi_da_escludere_dalla_ricerca|contains( $attribute.identifier )|not() )}
             {def $do = true()}
             {foreach $default_filters as $default_filter}                                
-                {if $default_filter|implode(' ')|contains( concat( 'submeta_', $attribute.identifier, '___id_si:' ) )}
+                {if $default_filter|implode(' ')|contains( solr_meta_subfield($attribute.identifier,'id') )}
                     {set $do = false()}
                     {break}
                 {/if}
             {/foreach}
             {foreach $facets as $facet}
-                {if $facet.field|eq( concat( 'submeta_', $attribute.identifier, '___id_si' ) )}
+                {if $facet.field|eq( solr_meta_subfield($attribute.identifier,'id') )}
                     {set $do = false()}
                     {break}
                 {/if}
@@ -72,7 +72,7 @@ $(document).ready(function(){
             {if $do}            
                 {switch match=$attribute.data_type_string}
                     {case in=array('ezobjectrelationlist')}
-                        {set $facets = $facets|append( hash( 'field', concat( 'submeta_', $attribute.identifier, '___id_si' ),
+                        {set $facets = $facets|append( hash( 'field', solr_meta_subfield($attribute.identifier,'id'),
                                                              'name', $attribute.name|explode( ' ' )|implode( '_' )|explode( ':' )|implode( '' ),
                                                              'limit', 10000,
                                                              'sort', 'alpha' ) )}

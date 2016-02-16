@@ -52,7 +52,7 @@
                  $search = fetch( 'ezfind', 'search', hash( 'subtree_array', array( $node.node_id ),
                                                               'offset', $view_parameters.offset,
                                                               'filter', array( concat( 'meta_depth_si:', $node.depth|inc() ) ),
-                                                              'sort_by', hash( 'attr_voti_si', 'desc' ),
+                                                              'sort_by', hash( solr_field('voti', 'sint'), 'desc' ),
                                                               'limit', $page_limit ) )
                  $children_count = $search['SearchCount']
                  $children = $search['SearchResult']}
