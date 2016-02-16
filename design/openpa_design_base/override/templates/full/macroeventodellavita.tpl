@@ -21,7 +21,7 @@
 
 {else}
     {def $sortString = 'published-desc'
-         $default_filters = array( concat( solr_meta_subfield('io_sono','id')':', $node.contentobject_id ) )
+         $default_filters = array( concat( solr_meta_subfield('io_sono','id'),':', $node.contentobject_id ) )
          $facets = array(        
             hash( 'field', solr_meta_field( 'class_identifier' ), 'name', 'Tipologia_di_contenuto', 'limit', 100, 'sort', 'alpha' ),
             hash( 'field', solr_meta_subfield( 'argomento', 'id' ), 'name', 'Argomento', 'limit', 100, 'sort', 'alpha' )
