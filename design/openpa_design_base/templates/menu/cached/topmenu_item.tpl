@@ -25,4 +25,7 @@
     <span>{$node.name|wash()}</span>     
 </a>
 
-{undef $title $href $target $class}
+{if is_set( $class )}
+{undef $class}
+{/if}
+{undef $title $href $target}
