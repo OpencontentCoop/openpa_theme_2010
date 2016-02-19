@@ -65,26 +65,26 @@ document.body.className = c;
 
 
 
-{cache-block keys=array( $module_result.uri, $basket_is_empty, $current_user.contentobject_id, $extra_cache_key )}
-    <div id="columns-position" class="width-layout{if $pagedata.class_identifier|eq('frontpage')} frontpage{/if}">
-    <div id="columns" class="float-break">
-{/cache-block}
+  <div id="columns-position" class="width-layout">
+  <div id="columns" class="float-break">
+
 
     {include uri='design:page_mainarea.tpl'}
 
-{cache-block keys=array( $module_result.uri, $basket_is_empty, $current_user.contentobject_id, $extra_cache_key, $cookie_dimensione, $cookie_contrasto )}
-    </div>
-    </div>
+  </div>
+  </div>
 
 {cache-block ignore_content_expiry}
     {include uri='design:page_footer.tpl'}
 {/cache-block}
 
 </div>
+</div>
+
+</div>
 
 {include uri='design:page_footer_script.tpl'}
 
-{/cache-block}
 
 </body>
 </html>
