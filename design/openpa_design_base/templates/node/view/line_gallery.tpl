@@ -8,7 +8,7 @@
 
 {def $is_flip = false()}
 {foreach $node.data_map as $attribute}
-{if and( $attribute.data_type_string|eq( 'ezbinaryfile' ), flip_exists( $attribute.contentobject_id, $attribute.version ) )}
+{if and( $attribute.data_type_string|eq( 'ezbinaryfile' ), flip_exists( $attribute.id, $attribute.version ) )}
     {set $is_flip = true()}
     {break}
 {/if}
