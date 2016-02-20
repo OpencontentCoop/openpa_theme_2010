@@ -213,7 +213,7 @@ $(function() {
                 
                 {case in=array('ezobjectrelationlist')}
                     
-                    {set $facets = $facets|append( hash( 'field', solr_meta_subfield( $attribute.identifier, 'main_node_id' ), 'name', $attribute.name, 'limit', 10 ) )}
+                    {set $facets = $facets|append( hash( 'field', solr_field($attribute.identifier,'string'), 'name', $attribute.name, 'limit', 100, 'sort', 'alpha' ) )}
                    {*
                     {if $attribute.identifier|eq('')}
                     {/if}
@@ -500,7 +500,7 @@ $(function() {
                         {if ne( $key2, '' )}
                             {def $filterName = $filters_search_extras.facet_fields.$key.queryLimit[$key2]|explode(':')
                                  $filterValue = getFilterParameter( $filterName[0] )}
-                            <option {if $filterValue|contains( $facetName )} selected="selected" {/if} value='{$filters_search_extras.facet_fields.$key.queryLimit[$key2]}'>{if fetch( 'content', 'node', hash( 'node_id', $facetName ))}{fetch( 'content', 'node', hash( 'node_id', $facetName )).name|wash()}{else}{$facetName}{/if} ({$filters_search_extras.facet_fields.$key.countList[$key2]})</option>
+                            <option {if or( $filterValue|contains( $facetName ), $filterValue|contains( concat('"',$facetName,'"' ) ))} selected="selected" {/if} value="{$filters_search_extras.facet_fields.$key.queryLimit[$key2]|addQuoteOnFilter()|wash()}">{$facetName} ({$filters_search_extras.facet_fields.$key.countList[$key2]})</option>
                             {undef $filterName $filterValue}
                         {/if}
                     {/foreach}
@@ -509,9 +509,9 @@ $(function() {
                     {foreach $filters_search_extras.facet_fields.$key.nameList as $key2 => $facetName}
                         {if ne( $key2, '' )}
                             {def $filterName = $filters_search_extras.facet_fields.$key.queryLimit[$key2]|explode(':')
-                                 $filterValue = getFilterParameter( $filterName[0] )}                            
+                                 $filterValue = getFilterParameter( $filterName[0] )}                                         
                             <label>
-                                <input {if $filterValue|contains( $facetName )} checked="checked" {/if} class="inline" type="checkbox" name="filter[]" value='{$filters_search_extras.facet_fields.$key.queryLimit[$key2]}' /> {if fetch( 'content', 'node', hash( 'node_id', $facetName ))}{fetch( 'content', 'node', hash( 'node_id', $facetName )).name|wash()}{else}{$facetName}{/if} ({$filters_search_extras.facet_fields.$key.countList[$key2]})
+                                <input {if or( $filterValue|contains( $facetName ), $filterValue|contains( concat('"',$facetName,'"' ) ))} checked="checked" {/if} class="inline" type="checkbox" name="filter[]" value="{$filters_search_extras.facet_fields.$key.queryLimit[$key2]|addQuoteOnFilter()|wash()}" /> {$facetName} ({$filters_search_extras.facet_fields.$key.countList[$key2]})
                             </label>
                             {undef $filterName $filterValue}
                         {/if}
@@ -524,7 +524,7 @@ $(function() {
                 <fieldset>
                     <legend>{$facet['name']}</legend>
                     <label>
-                        <input checked="checked" class="inline" type="checkbox" name="filter[]" value='{concat( $facet.field, ':', $filterValue[0] )}' /> {if fetch( 'content', 'node', hash( 'node_id', $filterValue[0] ))}{fetch( 'content', 'node', hash( 'node_id', $filterValue[0] )).name|wash()}{else}{$filterValue[0]}{/if}
+                        <input checked="checked" class="inline" type="checkbox" name="filter[]" value='{concat( $facet.field, ':', $filterValue[0] )}' /> {$filterValue[0]}
                     </label>
                 </fieldset>
                 {/if}
