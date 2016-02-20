@@ -157,7 +157,7 @@ $(function() {
 *}
 
 {set-block variable=$open}
-<div class="border-box block-search">
+<div class="border-box box-gray block-search">
 <div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
 <div class="border-ml"><div class="border-mr"><div class="border-mc">
 <div class="border-content">
@@ -235,6 +235,13 @@ $(function() {
     {/foreach}
 {/if}
 
+    <div class="block-search-advanced-container square-box-soft-gray-2">
+        <div class="block-search-advanced-link">
+
+            <p class="close">Ordinamento dei risultati</p>
+
+            <div class="block-search-advanced hide">
+
             <label for="Sort">Ordina per</label>
             <select id="Sort" name="Sort">
                 <option value=""> - Seleziona</option>
@@ -258,6 +265,10 @@ $(function() {
                     {/if}
                 {/foreach}
             </select>
+
+            </div>
+        </div>
+    </div>
             
 
 

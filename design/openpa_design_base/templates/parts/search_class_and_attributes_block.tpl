@@ -116,7 +116,7 @@ $(function() {
 {/foreach}
 
 {set-block variable=$open}
-<div class="border-box block-search">
+<div class="border-box box-gray block-search">
 <div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
 <div class="border-ml"><div class="border-mr"><div class="border-mc">
 <div class="border-content">
@@ -172,24 +172,32 @@ $(function() {
         {/foreach}
     {/if}
 
+        <div class="block-search-advanced-container square-box-soft-gray-2">
+            <div class="block-search-advanced-link">
 
-    <label for="Sort">Ordina per</label>
-    <select id="Sort" name="Sort">
-        <option value=""> - Seleziona</option>
-        <option {if $Sort|eq('published')} class="marked" selected="selected"{/if} value="published">Data di pubblicazione</option>
-        <option {if $Sort|eq('score')} class="marked" selected="selected"{/if} value="score">Rilevanza</option>
-        {*<option {if $Sort|eq('class_name')} class="marked" selected="selected"{/if} value="class_name">Tipologia di contenuto</option>*}
-        {foreach $sorters as $sorter}
-            {if and( $sorter.name|ne( 'Nome' ), $sorter.name|ne( 'Rilevanza' ), $sorter.name|ne( 'Tipologia di contenuto' ), $sorter.name|ne( 'Data di pubblicazione' ) )}
-                <option {if $Sort|eq($sorter.value)} class="marked" selected="selected"{/if} value="{$sorter.value}">{$sorter.name}</option>
-            {/if}
-        {/foreach}
-    </select>
-    <label for="Order">Ordinamento</label>
-    <select {if $Order}class="marked"{/if} name="Order" id="Order">										
-        <option {if $Order|eq('desc')} class="marked" selected="selected"{/if} value="desc">Discendente</option>
-        <option {if $Order|eq('asc')} class="marked" selected="selected"{/if} value="asc">Ascendente</option>
-    </select>
+                <p class="close">Ordinamento dei risultati</p>
+
+                <div class="block-search-advanced hide">
+                    <label for="Sort">Ordina per</label>
+                    <select id="Sort" name="Sort">
+                        <option value=""> - Seleziona</option>
+                        <option {if $Sort|eq('published')} class="marked" selected="selected"{/if} value="published">Data di pubblicazione</option>
+                        <option {if $Sort|eq('score')} class="marked" selected="selected"{/if} value="score">Rilevanza</option>
+                        {*<option {if $Sort|eq('class_name')} class="marked" selected="selected"{/if} value="class_name">Tipologia di contenuto</option>*}
+                        {foreach $sorters as $sorter}
+                            {if and( $sorter.name|ne( 'Nome' ), $sorter.name|ne( 'Rilevanza' ), $sorter.name|ne( 'Tipologia di contenuto' ), $sorter.name|ne( 'Data di pubblicazione' ) )}
+                                <option {if $Sort|eq($sorter.value)} class="marked" selected="selected"{/if} value="{$sorter.value}">{$sorter.name}</option>
+                            {/if}
+                        {/foreach}
+                    </select>
+                    <label for="Order">Ordinamento</label>
+                    <select {if $Order}class="marked"{/if} name="Order" id="Order">
+                        <option {if $Order|eq('desc')} class="marked" selected="selected"{/if} value="desc">Discendente</option>
+                        <option {if $Order|eq('asc')} class="marked" selected="selected"{/if} value="asc">Ascendente</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
 
 {if $class_filters[0]|ne('')}
