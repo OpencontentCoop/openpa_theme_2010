@@ -28,7 +28,7 @@
 		
         	{if $attributi_da_escludere|contains( $attribute.contentclass_attribute_identifier )|not()}
                 
-                {if and( flip_exists( $attribute.contentobject_id ), $attribute.contentclass_attribute_identifier|eq( 'file' ) )}
+                {if and( flip_exists( $attribute.contentobject_id, $attribute.version ), $attribute.contentclass_attribute_identifier|eq( 'file' ) )}
                     {set $oggetti_senza_label = $oggetti_senza_label|append( $attribute.contentclass_attribute_identifier )}
                 {/if}
 				

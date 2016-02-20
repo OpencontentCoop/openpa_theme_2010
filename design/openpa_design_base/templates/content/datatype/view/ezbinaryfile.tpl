@@ -31,7 +31,7 @@
 	{/if}
 {/if}
 
-{if and( $show_flip, flip_exists( $attribute.contentobject_id ) )}
+{if and( $show_flip, flip_exists( $attribute.contentobject_id, $attribute.version ) )}
 
     {def $pageDim = get_page_dimensions( $attribute.contentobject_id, 'small' )
          $heigth = $pageDim[1]}
