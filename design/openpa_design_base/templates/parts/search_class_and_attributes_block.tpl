@@ -146,7 +146,7 @@ $(function() {
 		{/foreach}
 	{/if}
 	<label for="search-string">Ricerca libera</label>
-	<input {if $search_included} id="Search" size="20" class="halfbox" {else} id="search-string"{/if} type="text" name="SearchText" value="{$search_text}" />
+	<input {if $search_included} id="Search" size="20" class="halfbox" {else} id="search-string"{/if} type="text" name="SearchText" value="{$search_text|wash()}" />
 
     
     {if $class_filters[0]|ne('')}
