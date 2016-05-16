@@ -146,7 +146,7 @@ $(function() {
                     {set $filterParameter = getFilterParameter( solr_field($attribute.identifier,'text') )}
                     {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', solr_field($attribute.identifier,'text') ) )}
                         <label for="{$attribute.identifier}">{$attribute.name}</label>
-                        <input id="{$attribute.identifier}" type="text" name="filter[{solr_field($attribute.identifier,'text')}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]}{/if}" />
+                        <input id="{$attribute.identifier}" type="text" name="filter[{solr_field($attribute.identifier,'text')}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]|wash()}{/if}" />
                     {/case}
                     
                     {case in=array('ezobjectrelationlist')}
