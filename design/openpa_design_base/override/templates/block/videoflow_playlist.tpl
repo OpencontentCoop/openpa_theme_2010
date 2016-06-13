@@ -24,8 +24,8 @@ $(function(){ldelim}
 
         playlist:[ 
 {foreach $block.valid_nodes as $valid_node}
-    {set $flash_node = $valid_node 
-         $attribute = $flash_node.data_map.ezflowmedia
+    {set $flash_node = $valid_node
+         $attribute = cond( is_set($flash_node.data_map.ezflowmedia), $flash_node.data_map.ezflowmedia, $flash_node.data_map.media )
          $sottotitoli = false()
          $image_content = false()
          $image = 'icons/logo-player.png'|ezimage(no)
@@ -92,8 +92,8 @@ $(function(){ldelim}
             controls:{ldelim} playlist: true {rdelim},
 
 {foreach $block.valid_nodes as $valid_node}
-    {set $flash_node = $valid_node 
-         $attribute = $flash_node.data_map.ezflowmedia}
+    {set $flash_node = $valid_node
+         $attribute = cond( is_set($flash_node.data_map.ezflowmedia), $flash_node.data_map.ezflowmedia, $flash_node.data_map.media )}
     {switch match=$attribute.content.streaming}
         {case match=rtmp}
             rtmp:{ldelim}url:'{'images/flowplayer.rtmp-3.0.2.swf'|ezdesign(no)}', netConnectionUrl:'{$attribute.content.url}'{rdelim},
