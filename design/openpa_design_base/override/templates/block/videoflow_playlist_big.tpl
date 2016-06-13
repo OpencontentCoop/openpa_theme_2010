@@ -4,7 +4,7 @@
      $page_limit = 10
      $valid_nodes = fetch( 'content', 'list', hash( 'parent_node_id', $parent.node_id,
                                                     'class_filter_type', 'include',
-                                                    'class_filter_array', array( 'ezflowmedia' ),
+                                                    'class_filter_array', array( 'ezflowmedia', 'video' ),
                                                     'limit', $page_limit,
                                                     'offset', $view_parameters.offset
                                                     ) )}
@@ -36,8 +36,8 @@ $(function(){ldelim}
 
         playlist:[ 
 {foreach $valid_nodes as $valid_node}
-    {set $flash_node = $valid_node 
-         $attribute = $flash_node.data_map.ezflowmedia
+    {set $flash_node = $valid_node
+         $attribute = cond( is_set($flash_node.data_map.ezflowmedia), $flash_node.data_map.ezflowmedia, $flash_node.data_map.media )
          $sottotitoli = false()
          $image_content = false()
          $image = 'icons/logo-player.png'|ezimage(no)
@@ -102,8 +102,8 @@ $(function(){ldelim}
             controls:{ldelim} playlist: true {rdelim},
 
 {foreach $valid_nodes as $valid_node}
-    {set $flash_node = $valid_node 
-         $attribute = $flash_node.data_map.ezflowmedia}
+    {set $flash_node = $valid_node
+         $attribute = cond( is_set($flash_node.data_map.ezflowmedia), $flash_node.data_map.ezflowmedia, $flash_node.data_map.media )}
     {switch match=$attribute.content.streaming}
         {case match=rtmp}
             rtmp:{ldelim}url:'{'images/flowplayer.rtmp-3.0.2.swf'|ezdesign(no)}', netConnectionUrl:'{$attribute.content.url}'{rdelim},
