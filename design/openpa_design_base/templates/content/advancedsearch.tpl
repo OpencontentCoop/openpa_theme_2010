@@ -55,6 +55,11 @@
      $f                         = false()
 }
 
+{def $sezione_trasparenza = fetch('content','list',hash( parent_node_id,1,class_filter_type,'include',class_filter_array,array(trasparenza),limit,1))}
+{if is_set($sezione_trasparenza[0])}
+	{set $sub_tree = $sub_tree|append($sezione_trasparenza[0].node_id)}
+{/if}
+
 {def $classes=fetch( 'class', 'list' )
      $not_available_facets_names = array()
      $available_classes_names = array()}
