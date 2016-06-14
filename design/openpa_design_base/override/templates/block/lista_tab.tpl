@@ -50,6 +50,8 @@ $(function() {
 					<div id="content-{$node.name|slugize()}">
 						{if $node.data_map.image.has_content}
 							<div class="attribute-image">{attribute_view_gui image_class='lista_tab' attribute=$node.data_map.image}</div>
+						{elseif and( is_set($node.data_map.sindaco), $node.data_map.sindaco.content.image.has_content )}
+							<div class="attribute-image">{attribute_view_gui image_class='lista_tab' attribute=$node.data_map.sindaco.content.image}</div>
 						{/if}
                         {if and( is_set( $node.data_map.abstract ), $node.data_map.abstract.has_content )}
                             {attribute_view_gui attribute=$node.data_map.abstract}
