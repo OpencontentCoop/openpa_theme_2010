@@ -48,9 +48,16 @@ $(function() {
 				<div class="border-content">
 									
 					<div id="content-{$node.name|slugize()}">
-						{if $node.data_map.image.has_content}
-							<div class="attribute-image">{attribute_view_gui image_class='lista_tab' attribute=$node.data_map.image}</div>
+						{if is_set($node.data_map.image)}
+							{if $node.data_map.image.has_content}
+								<div class="attribute-image">{attribute_view_gui image_class='lista_tab' attribute=$node.data_map.image}</div>
+							{/if}
+						{elseif is_set($node.data_map.sindaco)}
+							{if $node.data_map.sindaco.content.data_map.image.has_content}
+								<div class="attribute-image">{attribute_view_gui image_class='lista_tab' attribute=$node.data_map.sindaco.content.data_map.image}</div>
+							{/if}
 						{/if}
+
                         {if and( is_set( $node.data_map.abstract ), $node.data_map.abstract.has_content )}
                             {attribute_view_gui attribute=$node.data_map.abstract}
 						{elseif and( is_set( $node.data_map.short_description ), $node.data_map.short_description.has_content )}
