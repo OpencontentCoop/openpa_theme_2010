@@ -56,13 +56,17 @@ $(function() {
 				
 				<div class="attribute-short {if $index|gt(0)}no-js-hide{/if}">
 					{if and( is_set( $child.data_map.image ), $child.data_map.image.has_content )}
-					<div class="attribute-image">	
-						{if $child.class_identifier|eq('link')}
-        					{attribute_view_gui attribute=$child.data_map.image  href=$child.data_map.location.content|ezurl() image_class=lista_accordion}
-						{else}
-							{attribute_view_gui attribute=$child.data_map.image href=$child.url_alias|ezurl() image_class=lista_accordion}
-						{/if}
-					</div>
+						<div class="attribute-image">
+							{if $child.class_identifier|eq('link')}
+								{attribute_view_gui attribute=$child.data_map.image  href=$child.data_map.location.content|ezurl() image_class=lista_accordion}
+							{else}
+								{attribute_view_gui attribute=$child.data_map.image href=$child.url_alias|ezurl() image_class=lista_accordion}
+							{/if}
+						</div>
+					{elseif and( is_set($child.data_map.sindaco), $child.data_map.sindaco.content.image.has_content )}
+						<div class="attribute-image">
+							{attribute_view_gui attribute=$child.data_map.sindaco.content.image.image href=$child.url_alias|ezurl() image_class=lista_accordion}
+						</div>
 					{else}
                         {include node=$child uri='design:parts/common/class_icon.tpl' css_class="image-medium"}           
 					{/if}
