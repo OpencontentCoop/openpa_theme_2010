@@ -130,24 +130,26 @@ $(function() {
                         </div>
     
                     {else}
-                        {if is_set($child.data_map.image)}
-                            {if $child.data_map.image.has_content}
-                                <div class="attribute-image">
-                                    {if $child.class_identifier|eq('link')}
-                                        {attribute_view_gui attribute=$child.data_map.image  href=$child.data_map.location.content|ezurl() image_class=medium}
-                                    
-                                    {elseif $child.class_identifier|eq('struttura')}
-                                        {def $my_node=fetch( 'content', 'node', hash( 'node_id', $node.data_map.tipo_struttura.content.relation_list[0].node_id) )}
-                                        {include node=$my_node uri='design:parts/common/class_icon.tpl' css_class="image-medium"}        
-    
-                                    {else}
-                                        {attribute_view_gui attribute=$child.data_map.image href=$child.url_alias|ezurl() image_class=lista_accordion}
-                                    
-                                    {/if}
-                                </div>
-                            {else}
-                                {include node=$child uri='design:parts/common/class_icon.tpl' css_class="image-medium"}                            
-                            {/if}
+                        {if and( is_set( $child.data_map.image ), $child.data_map.image.has_content )}
+                            <div class="attribute-image">
+                                {if $child.class_identifier|eq('link')}
+                                    {attribute_view_gui attribute=$child.data_map.image  href=$child.data_map.location.content|ezurl() image_class=medium}
+
+                                {elseif $child.class_identifier|eq('struttura')}
+                                    {def $my_node=fetch( 'content', 'node', hash( 'node_id', $node.data_map.tipo_struttura.content.relation_list[0].node_id) )}
+                                    {include node=$my_node uri='design:parts/common/class_icon.tpl' css_class="image-medium"}
+
+                                {else}
+                                    {attribute_view_gui attribute=$child.data_map.image href=$child.url_alias|ezurl() image_class=lista_accordion}
+
+                                {/if}
+                            </div>
+                        {elseif and( is_set($child.data_map.sindaco), $child.data_map.sindaco.content.image.has_content )}
+                            <div class="attribute-image">
+                                {attribute_view_gui attribute=$child.data_map.sindaco.content.image.image href=$child.url_alias|ezurl() image_class=lista_accordion}
+                            </div>
+                        {else}
+                            {include node=$child uri='design:parts/common/class_icon.tpl' css_class="image-medium"}
                         {/if}
                     {/if}
                                             
