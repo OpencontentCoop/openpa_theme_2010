@@ -41,11 +41,11 @@
             {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl' nodes=fetch_alias( 'children', hash( 'parent_node_id', $node.node_id,'sort_by', $node.sort_array, 'load_data_map', false() ) ) nodes_count=fetch_alias( 'children_count', hash( 'parent_node_id', $node.node_id ) ) class=''}
         
         {else}
-          {def $children_count = fetch_alias( 'children_count', hash( 'parent_node_id', $node.node_id ), 'class_filter_type', 'exclude','class_filter_array', array( 'nota_trasparenza' ) )
+          {def $children_count = fetch( 'content', 'list_count', hash( 'parent_node_id', $node.node_id ), 'class_filter_type', 'exclude','class_filter_array', array( 'nota_trasparenza' ) )
                $page_limit = openpaini( 'GestioneFigli', 'limite_paginazione', 25 )}
           
           {if $children_count|gt(0)}
-              {foreach fetch_alias( 'children', hash( 'parent_node_id', $node.node_id,
+              {foreach fetch( 'content', 'list', hash( 'parent_node_id', $node.node_id,
                                                       'offset', $view_parameters.offset,
                                                       'sort_by', $node.sort_array,
                                                       'class_filter_type', 'exclude','class_filter_array', array( 'nota_trasparenza' ),
