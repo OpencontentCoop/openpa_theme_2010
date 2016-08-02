@@ -27,7 +27,18 @@
                  node = $node}
 
         {if $node|find_first_parent( 'pagina_trasparenza' )}
-          {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl' nodes=fetch_alias( 'children', hash( 'parent_node_id', $node.node_id,'sort_by', $node.sort_array, 'load_data_map', false() ) ) nodes_count=fetch_alias( 'children_count', hash( 'parent_node_id', $node.node_id ) ) class=''}
+
+            {def $nota = fetch( 'content', 'list', hash( 'parent_node_id', $node.node_id,'class_filter_type', 'include','class_filter_array', array( 'nota_trasparenza' ),'sort_by', array( 'published', false() ),'limit', 1 ) )}
+
+            {* Nota: una sola nota *}
+            {if $nota|count()|gt(0)}
+                <div class="block">
+                    {include name=edit node=$nota[0] uri='design:parts/openpa/edit_buttons.tpl'}
+                    <em>{attribute_view_gui attribute=$nota[0].data_map.testo_nota}</em>
+                </div>
+            {/if}
+
+            {include uri='design:parts/openpa/amminsitrazione_trasparente/children_table.tpl' nodes=fetch_alias( 'children', hash( 'parent_node_id', $node.node_id,'sort_by', $node.sort_array, 'load_data_map', false() ) ) nodes_count=fetch_alias( 'children_count', hash( 'parent_node_id', $node.node_id ) ) class=''}
         
         {else}
           {def $children_count = fetch_alias( 'children_count', hash( 'parent_node_id', $node.node_id ) )
