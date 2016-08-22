@@ -11,7 +11,7 @@
     {def $extra_cache_key = ''}
 {/if}
 {cache-block expiry=86400 keys=array( $module_result.uri, $access_type.name, $user_hash, $extra_cache_key, $cookies|implode(',') )}
-{def $browser          = checkbrowser('checkbrowser')     
+{def $browser          = checkbrowser('checkbrowser')
      $pagedata         = openpapagedata()
      $pagestyle        = $pagedata.css_classes
      $locales          = fetch( 'content', 'translation_list' )
@@ -49,6 +49,9 @@ document.body.className = c;
 {include uri='design:page_browser_alert.tpl'}
 
 {cache-block expiry=86400 keys=array( $module_result.uri, $access_type.name, $user_hash, $extra_cache_key )}
+{if is_set($pagedata)|not()}{def $pagedata = openpapagedata()}{/if}
+{if is_set($pagestyle)|not()}{def $pagestyle = $pagedata.css_classes}{/if}
+{if is_set($main_style)|not()}{def $main_style = get_main_style()}{/if}
 <div id="page" class="{$pagestyle} {$main_style}">
 
     {if and( is_set( $pagedata.persistent_variable.extra_template_list ), $pagedata.persistent_variable.extra_template_list|count() )}
@@ -58,31 +61,33 @@ document.body.className = c;
     {/if}
 
     {include uri='design:page_header.tpl'}
-  
+
     {if and( $pagedata.top_menu, $is_login_page|not() )}
         {include uri='design:page_topmenu.tpl'}
     {/if}
 {/cache-block}
 
-<div id="links">    
+<div id="links">
 {cache-block expiry=86400 keys=array( $module_result.uri, $user_hash, $access_type.name, $extra_cache_key, $cookies|implode(',') )}
     {if $is_login_page|not()}
-        {include uri='design:page_header_usability.tpl'}        
-    {/if}   
-{/cache-block}    
+        {include uri='design:page_header_usability.tpl'}
+    {/if}
+{/cache-block}
 
 {cache-block keys=array( $module_result.uri, $current_user.contentobject_id, $access_type.name, $extra_cache_key )}
     {if $is_login_page|not()}
-        {if is_set($pagedata)|not()}
-		  {def $pagedata = openpapagedata()
-			   $pagedesign = $pagedata.template_look}
-		{/if}
-		{include uri='design:page_header_links.tpl'}        
-    {/if}   
+      {if is_set($pagedata)|not()}
+        {def $pagedata = openpapagedata()
+           $pagedesign = $pagedata.template_look}
+      {/if}
+      {include uri='design:page_header_links.tpl'}
+    {/if}
 {/cache-block}
 </div>
 
-{cache-block expiry=86400 keys=array( $module_result.uri, $user_hash, $access_type.name, $extra_cache_key )}    
+{cache-block expiry=86400 keys=array( $module_result.uri, $user_hash, $access_type.name, $extra_cache_key )}
+    {if is_set($pagedata)|not()}{def $pagedata = openpapagedata()}{/if}
+    {if is_set($current_node_id)|not()}{def $current_node_id = $pagedata.node_id}{/if}
     {if and( $pagedata.show_path,
              $current_node_id|ne(ezini( 'NodeSettings', 'RootNode', 'content.ini' )),
              $module_result.uri|ne('/content/advancedsearch'),
@@ -90,10 +95,10 @@ document.body.className = c;
              $module_result.uri|ne('/content/advancedsearch/'),
              $module_result.uri|ne('/content/search/'),
              is_set( $module_result.content_info )
-            )}        
-        {include uri='design:page_toppath.tpl'}        
+            )}
+        {include uri='design:page_toppath.tpl'}
     {/if}
-  
+
     {if and( $pagedata.website_toolbar, $pagedata.is_edit|not)}
         {include uri='design:page_toolbar.tpl'}
     {/if}
@@ -119,26 +124,26 @@ document.body.className = c;
     {if and($pagedata.extra_menu, $module_result.content_info)}
         {include uri='design:page_extramenu.tpl'}
     {/if}
-	
+
     </div>
     </div>
 <!-- {$ui_context} -->
-    {if and( $ui_context|ne( 'edit' ), $ui_context|ne( 'browse' ) )}    
+    {if and( $ui_context|ne( 'edit' ), $ui_context|ne( 'browse' ) )}
         {if and( $current_node_id|ne(2), $pagedata.class_identifier|ne('frontpage'), $pagedata.class_identifier|ne('') ) }
             {include name=valuation node_id=$current_node_id uri='design:parts/openpa/valuation.tpl'}
         {/if}
-    {/if}        
+    {/if}
     {include uri='design:page_footer.tpl'}
 </div>
 
-{if and( $ui_context|ne( 'edit' ), $ui_context|ne( 'browse' ), is_set( $pagedata.homepage.data_map.sensor_footer_banner ) )} 
+{if and( $ui_context|ne( 'edit' ), $ui_context|ne( 'browse' ), is_set( $pagedata.homepage.data_map.sensor_footer_banner ) )}
 {include uri='design:parts/sensor_footer_banner.tpl' url=$pagedata.homepage.data_map.sensor_footer_banner.content banner=$pagedata.homepage.data_map.sensor_footer_banner name=sensor_ad}
 {/if}
 
 {include uri='design:page_footer_script.tpl'}
 {/cache-block}
 
-{* modal window and AJAX stuff 
+{* modal window and AJAX stuff
 <div id="overlay-mask" style="display:none;"></div>
 <img src={'loading.gif'|ezimage()} id="ajaxuploader-loader" style="display:none;" alt="{'Loading...'|i18n( 'design/admin/pagelayout' )}" />
 *}
