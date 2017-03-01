@@ -58,18 +58,15 @@ $(document).ready(function(){$("#ezwt-create").chosen({width:"250px"})});
 {if and( $content_object.can_create, $is_container )}
 <div id="ezwt-creataction" class="ezwt-actiongroup">
 <label for="ezwt-create" class="hide">Create:</label>
-{def $can_create_class_list = ezcreateclasslistgroups( $content_object.can_create_class_list )}
-  {if $can_create_class_list|count()}
-  <select name="ClassID" id="ezwt-create">
-  {foreach $can_create_class_list as $group}
-    <optgroup label="{$group.group_name}">
-    {foreach $group.items as $class}
-        <option value="{$class.id}">{$class.name|wash}</option>
-    {/foreach}
-    </optgroup>
-  {/foreach}
-  </select>
-  {/if}
+    {def $can_create_class_list = $content_object.can_create_class_list}
+    {if $can_create_class_list|count()}
+        <select name="ClassID" id="ezwt-create" data-placeholder="{"Create here"||i18n('design/admin/node/view/full')}">
+            <option></option>
+            {foreach $can_create_class_list as $class}
+                <option value="{$class.id}">{$class.name|wash}</option>
+            {/foreach}
+        </select>
+    {/if}
   <input type="hidden" name="ContentLanguageCode" value="{ezini( 'RegionalSettings', 'ContentObjectLocale', 'site.ini')}" />
   <input class="ezwt-input-image" type="image" src={"websitetoolbar/ezwt-icon-create.png"|ezimage} name="NewButton" title="{'Create here'|i18n('design/standard/parts/website_toolbar')}" />
 </div>
