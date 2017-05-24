@@ -104,18 +104,20 @@
 {debug-log var=$not_available_facets_names|sort|implode(', ') msg='Faccette escluse' }
 
 {* da SubTreeArray a orig_position *}
+{def $SubTreeArrayString = '&'}
 {if $SubTreeArray}
     {if is_array( $SubTreeArray )|not()}
-    {set $SubTreeArray = array( $SubTreeArray )}
+        {set $SubTreeArray = array( $SubTreeArray )}
     {/if}
     {if $SubTreeArray[0]|ne( ezini( 'NodeSettings', 'RootNode', 'content.ini' ) )}
-    {set $orig_position = fetch( content,node,hash( node_id, $SubTreeArray[0] ) )}
+        {set $orig_position = fetch( content,node,hash( node_id, $SubTreeArray[0] ) )}
+        {set $sub_tree = array()}
     {/if}
+	{foreach $SubTreeArray as $SubTree}
+        {set $SubTreeArrayString = concat($SubTreeArrayString, 'SubTreeArray[]=',$SubTree,'&')}
+        {set $sub_tree = $sub_tree|append($SubTree)}
+	{/foreach}
 {/if}
-{if $orig_position}
-    {set $sub_tree = array( $orig_position.node_id )}
-{/if}
-
 
 {* nome del bottone *}
 {set $SearchButton = 'Cerca'}
@@ -391,7 +393,6 @@
 
 			<div class="content-search">
 				<p>
-					{*<input name="SubTreeArray[]" type="hidden" value="{$sub_tree[0]}" />*}
 					<label for="Search">Ricerca libera</label>
 					<input class="halfbox" type="text" size="20" name="SearchText" id="Search" value="{$search_text|wash}" />					
 				</p>
@@ -449,152 +450,7 @@
 							</div>
 							</div>
 							
-						</div>	
-                        {*
-                        <div class="block-search-advanced " id="AdvancedSearchPanel">					
-							<label for="PhraseSearchText">{"Search the exact phrase"|i18n("design/standard/content/search")}</label>
-							<input class="box" type="text" size="40" name="PhraseSearchText" id="PhraseSearchText" value="{$phrase_search_text|wash}" />
-
-							<div class="columns-three">
-							<div class="col-1-2">
-							<div class="col-1">
-							<div class="col-content">
-
-                                {def $node_servizi_attivi           = fetch( content, node, hash( node_id, openpaini( 'Nodi', 'ServiziAttivi', false() ) ) )
-                                     $node_servizi_non_attivi       = fetch( content, node, hash( node_id, openpaini( 'Nodi', 'ServiziNonAttivi', false() ) ) )
-                                     $node_argomenti                = fetch( content, node, hash( node_id, openpaini( 'Nodi', 'Argomenti', false() ) ) )
-                                     $servizi_attivi                = cond( $node_servizi_attivi, fetch( content, list, hash(
-                                                                                                parent_node_id, $node_servizi_attivi.node_id,
-                                                                                                'sort_by', array('name', true()),
-                                                                                                'class_filter_type',  'include',
-                                                                                                'class_filter_array', array( 'servizio'))
-                                                                                                ) )
-                                     $servizi_non_attivi            = cond( $node_servizi_non_attivi, fetch( content, list, hash(
-                                                                                                parent_node_id, $node_servizi_non_attivi.node_id,
-                                                                                                'sort_by', array('name', true()),
-                                                                                                'class_filter_type',  'include',
-                                                                                                'class_filter_array', array( 'servizio'))
-                                                                                                ) )
-                                     $margomenti                    = cond( $node_argomenti, fetch( content, list, hash(
-                                                                                                parent_node_id, $node_argomenti.node_id,
-                                                                                                'sort_by', array('name', true()),
-                                                                                                'class_filter_type',  'include',
-                                                                                                'class_filter_array', array( 'macroargomento'))
-                                                                                                ) )
-                                }
-
-								<div class="subfilter">
-                                {set $filterParameter = getFilterParameter( 'submeta_servizio___main_node_id_si' )}
-									<label for="Servizi">Inerente al Servizio:</label>
-									<select id="Servizi" name="filter[submeta_servizio___main_node_id_si]">
-                                    <option value="">Qualsiasi servizio</option>
-                                    {if $node_servizi_attivi}
-                                        <optgroup  label='{$node_servizi_attivi.name|wash}'>
-									   {foreach $servizi_attivi as $k => $servizio}
-											<option {if $filterParameter|contains( $servizio.node_id  )} class="marked" selected="selected" {/if} value='{$servizio.node_id}'>{$servizio.name|wash}</option>
-									   {/foreach}
-									   </optgroup>
-                                    {/if}
-                                    {if $node_servizi_non_attivi}
-									   <optgroup  label="Servizi non attivi">
-									   {foreach $servizi_non_attivi as $k => $servizio}
-											<option {if $filterParameter|contains( $servizio.node_id ) }  class="marked" selected="selected" {/if} value='{$servizio.node_id}'>{$servizio.name|wash}</option>
-									   {/foreach}
-									   </optgroup>
-                                    {/if}
-									</select>
-								</div>
-											
-                                
-								<div class="subfilter">
-									<div class="element">
-										<label for="SubTreeArray">Sezione del sito in cui cercare:</label>
-										<select id="SubTreeArray" name="SubTreeArray[]">
-											<option value="{ezini( 'NodeSettings', 'RootNode', 'content.ini' )}">In tutte le sezioni</option>
-										{set $subtree_node = false()}
-										{foreach $select_sezioni as $subtree}
-											{set $subtree_node=fetch(content,node,hash(node_id, $subtree))}
-											{if is_set($subtree_node.name)}                                            
-											<option {if and( count($SubTreeArray), $SubTreeArray|contains($subtree) )} class="marked" selected="selected"'{/if} value="{$subtree}">
-												Solo in "{$subtree_node.name|wash}"
-											</option>
-											{/if}
-										{/foreach}
-										</select> 
-									</div>
-								</div>								
-
-							</div>
-							</div>
-							<div class="col-2">
-							<div class="col-content">
-								<div class="subfilter">
-                                {set $filterParameter = getFilterParameter( 'submeta_argomento___main_node_id_si-name_s' )}
-									{if $margomenti}
-                                    <label for="Argomenti">Argomento</label>
-									<select id="Argomenti" name="filter[subattr_argomento-name_s]">
-										<option value="">Qualsiasi argomento</option>
-										
-										{foreach $margomenti as $k => $margomento}
-										<optgroup  label="{$margomento.name|wash}">
-											{set $argomenti_tutti = fetch( content, list, hash(  parent_node_id, $margomento.node_id,
-                                                                                                'sort_by', array('name', true()),
-                                                                                                'class_filter_type',  'include',
-                                                                                                'class_filter_array', array( 'argomento' )
-                                                                                            ))}
-											{foreach $argomenti_tutti as $k => $argomento}
-                                                <option {if $filterParameter|contains( $argomento.node_id  )}  class="marked" selected="selected" {/if} value='{$argomento.node_id}'>{$argomento.name|wash}</option>
-											{/foreach}
-										</optgroup>
-                                        {/foreach}
-									</select>
-                                    {/if}
-								</div>
-
-								<div class="subfilter">
-									<label for="Sort">Ordina per</label>
-									<select id="Sort" name="Sort">
-                                        <option value=""> - Seleziona</option>
-										<option {if $Sort|eq('score')} class="marked" selected="selected"{/if} value="score">Rilevanza</option>
-										<option {if $Sort|eq('published')} class="marked" selected="selected"{/if} value="published">Data di pubblicazione</option>
-										<option {if $Sort|eq('class_name')} class="marked" selected="selected"{/if} value="class_name">Tipologia di contenuto</option>
-										<option {if $Sort|eq('name')} class="marked" selected="selected"{/if} value="name">Nome</option>
-									</select>
-									<label for="Order">Ordinamento</label>
-									<select {if $Order}class="marked"{/if} name="Order" id="Order">										
-										<option {if $Order|eq('desc')} class="marked" selected="selected"{/if} value="desc">Discendente</option>
-										<option {if $Order|eq('asc')} class="marked" selected="selected"{/if} value="asc">Ascendente</option>
-									</select>
-								</div>	
-
-							</div>
-							</div>
-							</div>
-							<div class="col-3">
-							<div class="col-content">
-
-								<div class="subfilter">
-									<label for="anno_s">Anno</label>
-									<select {if is_set($anno_s[0])}class="marked"{/if} id="anno_s" name="anno_s[]">
-										<option value="">Qualsiasi anno</option>
-										{foreach $_anni as $anno}
-										<option {if is_set($anno_s[0])}{if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if}{/if} value="{$anno}">{$anno}</option>
-										{/foreach}
-									</select>
-								</div>
-									
-								<span class="label">Usa condizioni logiche:</span>
-								<label for="radio_and">AND <input type="radio" id="radio_and" name="cond" title="AND" value="AND" {if $cond|eq('AND')}checked="checked"{/if} /></label>
-								
-								<label for="radio_or"> OR <input id="radio_or" type="radio" name="cond" title="OR" value="OR" {if $cond|ne('AND')}checked="checked"{/if} /></label>
-								
-
-							</div>
-							</div>
-							</div>
 						</div>
-            
-                        *}
                 	</div>		
 				</div>
 
@@ -720,7 +576,7 @@
 			{include name=Navigator
 				 uri='design:navigator/google.tpl'
 				 page_uri='content/advancedsearch'
-				 page_uri_suffix=concat( '?SearchText=',$search_text|urlencode,'&PhraseSearchText=',$phrase_search_text|urlencode,$search_timestamp|gt(0)|choose('',concat('&SearchTimestamp=',$search_timestamp)), $uriSuffix,"&SearchButton=Cerca",cond( is_set($anno_s[0]), concat("&anno_s[]=",$anno_s[0]) ),"&SubTreeArray[]=",$sub_tree[0],"&Sort=",$Sort,"&Order=",$Order,"&cond=",$cond )
+				 page_uri_suffix=concat( '?SearchText=',$search_text|urlencode,'&PhraseSearchText=',$phrase_search_text|urlencode,$search_timestamp|gt(0)|choose('',concat('&SearchTimestamp=',$search_timestamp)), $uriSuffix,"&SearchButton=Cerca",cond( is_set($anno_s[0]), concat("&anno_s[]=",$anno_s[0]) ),$SubTreeArrayString,"Sort=",$Sort,"&Order=",$Order,"&cond=",$cond )
 				 item_count=$search_count
 				 view_parameters=$view_parameters
 				 item_limit=$page_limit}
@@ -750,8 +606,7 @@
                 <div class="block-search-advanced-link">
                     <p id="FilterSearch" class="notoggle open">Cerchi aiuto?</p>	
             
-                           <a href={$link_istruzioni_ricerca.url_alias|ezurl()} 
-                          title="Guarda il video-guida su come sfruttare al massimo il motore di ricerca del sito">Impara ad usare la ricerca</a>
+                           <a href="{$link_istruzioni_ricerca.url_alias|ezurl(no)}" title="Guarda il video-guida su come sfruttare al massimo il motore di ricerca del sito">Impara ad usare la ricerca</a>
                 </div>
             </div></div></div>
             <div class="border-bl"><div class="border-br"><div class="border-bc"></div></div></div>

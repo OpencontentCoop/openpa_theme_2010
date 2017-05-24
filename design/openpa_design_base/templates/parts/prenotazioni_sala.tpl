@@ -55,15 +55,15 @@
 
 {def $hash = hash('subtree_array', $subtree_array,
                   'limit', 100,
-                  'sort_by', hash( concat( solr_field('from_time','date'), 'desc' ),
+                  'sort_by', hash( solr_field('from_time','date'), 'desc' ),
                   'class_id', array( 'prenotazione_sala' ),
                   'filter', array(
                     'or',
-                        concat( concat( solr_field('from_time','date'),':[', $ezfind_month_first, ' TO ', $ezfind_month_last, ']' ),
-                        concat( concat( solr_field('to_time','date'),':[', $ezfind_month_first, ' TO ', $ezfind_month_last, ']' ),
+                        concat( solr_field('from_time','date'),':[', $ezfind_month_first, ' TO ', $ezfind_month_last, ']' ),
+                        concat( solr_field('to_time','date'),':[', $ezfind_month_first, ' TO ', $ezfind_month_last, ']' ),
                         array( 'and',
-                            concat( concat( solr_field('from_time','date'),':[ * TO ', $ezfind_month_first, ']' ),
-                            concat( concat( solr_field('to_time','date'),':[', $ezfind_month_last, ' TO * ]' )
+                            concat( solr_field('from_time','date'),':[ * TO ', $ezfind_month_first, ']' ),
+                            concat( solr_field('to_time','date'),':[', $ezfind_month_last, ' TO * ]' )
                         )
                     )
                  )
