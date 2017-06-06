@@ -10,7 +10,7 @@
 {if is_set( $extra_cache_key )|not}
     {def $extra_cache_key = ''}
 {/if}
-{cache-block expiry=86400 keys=array( $module_result.uri, $user_hash, $extra_cache_key, $cookies|implode(',') )}
+{cache-block keys=array( $module_result.uri, $user_hash, $extra_cache_key, $cookies|implode(',') )}
 {def $browser          = checkbrowser('checkbrowser')     
      $pagedata         = openpapagedata()
      $pagestyle        = $pagedata.css_classes
