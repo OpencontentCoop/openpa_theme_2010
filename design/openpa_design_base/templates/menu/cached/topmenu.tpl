@@ -10,6 +10,8 @@
      $custom_aree = openpaini( 'TopMenu', 'NodiAreeCustomMenu', array() )
      $main_styles = openpaini( 'Stili', 'Nodo_NomeStile', array() )
      $hide_children = openpaini( 'TopMenu', 'NodiSoloPrimoLivello', array() )
+     $hide_nodes = openpaini( 'TopMenu', 'NascondiNodi', array() )
+
      
      $item_class = array()
      $level_2_items_count = 0    
@@ -47,6 +49,7 @@
         {if $level_2_items|count()}
             <ul class="secondlevel">
                 {foreach $level_2_items as $key => $item2}
+                    {if $hide_nodes|contains($item2.node_id)}{skip}{/if}
                     {set $item_class_2 = array()
                          $level_2_items_count = $level_2_items|count()}
                     {if $key|eq(0)}
@@ -72,6 +75,7 @@
                     {if $level_3_items|count()|gt(0)}
                     <ul class="thirdlevel float-break {$item2.name|slugize()}">
                         {foreach $level_3_items as $item3}
+                            {if $hide_nodes|contains($item3.node_id)}{skip}{/if}
                             <li class="thirdlevel-count-{$level_3_items|count()}">
                                 <div>
                                     {include uri='design:menu/cached/topmenu_item.tpl' node=$item3}
