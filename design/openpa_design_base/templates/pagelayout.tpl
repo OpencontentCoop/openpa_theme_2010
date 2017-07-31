@@ -23,7 +23,7 @@
 {include uri='design:page_head.tpl'}
 
 <!-- Site: {ezsys( 'hostname' )} -->
-{if ezsys( 'hostname' )|contains( 'opencontent' )}
+{if openpaini("Seo", "EnableRobots")|eq('disabled')}
 <META name="robots" content="NOINDEX,NOFOLLOW" />
 {/if}
 
