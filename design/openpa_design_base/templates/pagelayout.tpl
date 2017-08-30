@@ -21,12 +21,7 @@
 
 {include uri='design:page_head_google-site-verification.tpl'}
 {include uri='design:page_head.tpl'}
-
-<!-- Site: {ezsys( 'hostname' )} -->
-{if openpaini("Seo", "EnableRobots")|eq('disabled')}
-<META name="robots" content="NOINDEX,NOFOLLOW" />
-{/if}
-
+{no_index_if_needed()}
 {include uri='design:page_head_style.tpl'}
 {include uri='design:page_head_script.tpl'}
 
