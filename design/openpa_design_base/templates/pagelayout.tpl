@@ -4,7 +4,11 @@
 
 {def $user_hash = concat( $current_user.role_id_list|implode( ',' ), ',', $current_user.limited_assignment_value_list|implode( ',' ) )
      $is_login_page = cond( and( module_params()['module_name']|eq( 'user' ), module_params()['function_name']|eq( 'login' ) ), true(), false() )
-     $cookies = check_and_set_cookies()}
+     $cookies = hash(
+        'dimensione', 'normale',
+        'contrasto', 'normale',
+        'layout', 'rigido'
+     )}
 
 
 {if is_set( $extra_cache_key )|not}

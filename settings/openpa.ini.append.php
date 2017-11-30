@@ -1,0 +1,5 @@
+<?php /*
+[GeneralSettings]
+UseDynamicIni=disabled
+
+*/ ?>
