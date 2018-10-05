@@ -112,14 +112,6 @@
 
     {/if}
 
-    {* CALENDARIO OCCUPAZIONE SALA *}
-    {def $openpa = object_handler( $node )}
-    {if $openpa.control_booking_sala_pubblica}
-      {include uri=$openpa.control_booking_sala_pubblica.template}
-    {else}
-      {include name=calendario_prenotazioni node=$node uri='design:parts/prenotazioni_sala.tpl' view_parameters=$view_parameters}
-    {/if}
-
 	{* COMMENTI *}
     {if openpaini( 'GestioneClassi', 'classi_commentabili' )|contains($node.class_identifier)}
 		{include name=create_comment node=$node uri='design:parts/websitetoolbar/create_comment.tpl'}

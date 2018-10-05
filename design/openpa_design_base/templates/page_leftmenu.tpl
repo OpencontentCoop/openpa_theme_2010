@@ -1,12 +1,12 @@
     <div id="sidemenu-position">
       <div id="sidemenu">
-        {if is_array( $pagedata.left_menu )}
-            {foreach $pagedata.left_menu as $left_menu}
-                {include uri=concat('design:menu/', $left_menu, '.tpl')}
+        {if is_array( $left_menu )}
+            {foreach $left_menu as $menu}
+                {include uri=concat('design:menu/', $menu, '.tpl')}
                 {delimiter}<div class="hr"></div>{/delimiter}
             {/foreach}
         {else}
-            {include uri=concat('design:menu/', $pagedata.left_menu, '.tpl')}
+            {include uri=concat('design:menu/', $left_menu, '.tpl')}
         {/if}
        </div>
     </div>

@@ -1,5 +1,3 @@
-{include name=menu_control node=$node uri='design:parts/common/menu_control.tpl'}
-
 <div class="border-box">
 <div class="global-view-full content-view-full">
     <div class="class-folder">

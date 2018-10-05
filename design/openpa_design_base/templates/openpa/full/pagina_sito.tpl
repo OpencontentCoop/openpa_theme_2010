@@ -1,13 +1,10 @@
-{def $openpa = object_handler($node)
-     $is_albotelematico_container = false()}
+{include name=menu_control node=$node uri='design:parts/common/menu_control.tpl'}
+{def $is_albotelematico_container = false()}
 {if and( is_set( $openpa.content_albotelematico ), $openpa.content_albotelematico.is_container )}
   {set $is_albotelematico_container = true()}
 {/if}
 
-{include name=menu_control node=$node uri='design:parts/common/menu_control.tpl'}
-
-{def $current_user = fetch( 'user', 'current_user' )
-     $classes_parent_to_edit=array('file_pdf', 'news')
+{def $classes_parent_to_edit=array('file_pdf', 'news')
      $sezioni_per_tutti= openpaini( 'GestioneSezioni', 'sezioni_per_tutti' )
 	 $style='col-odd'
 }

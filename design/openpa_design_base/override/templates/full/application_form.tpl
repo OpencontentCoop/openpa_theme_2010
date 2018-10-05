@@ -1,5 +1,10 @@
-{* Feedback form - Full view *}
-{include name=menu_control node=$node uri='design:parts/common/menu_control.tpl'}
+{def $extra_info = 'extra_info'
+     $left_menu = ezini('SelectedMenu', 'LeftMenu', 'menu.ini')
+     $openpa = object_handler($node)
+     $homepage = fetch('openpa', 'homepage')
+     $current_user = fetch('user', 'current_user')
+     $user_hash = concat( $current_user.role_id_list|implode( ',' ), ',', $current_user.limited_assignment_value_list|implode( ',' ) )}
+{include uri='design:parts/openpa/wrap_full_open.tpl'}
 
 <div class="border-box">
 <div class="global-view-full content-view-full">
@@ -155,3 +160,4 @@
 
 </div>
 </div>
+{include uri='design:parts/openpa/wrap_full_close.tpl'}

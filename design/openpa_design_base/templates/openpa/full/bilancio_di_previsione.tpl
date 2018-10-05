@@ -1,0 +1,1 @@
+{include uri = 'design:openpa/full/_container.tpl'}

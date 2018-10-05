@@ -4,7 +4,7 @@
 	$node
 *}
 
-
+{debug-accumulator id=editor_tools name=editor_tools}
 {def $gruppo_dipendenti = openpaini( 'ControlloUtenti', 'gruppo_dipendenti' )
 	 $gruppo_amministratori = openpaini( 'ControlloUtenti', 'gruppo_amministratori' )
      $editors = openpaini( 'ControlloUtenti', 'editors', array() )
@@ -26,8 +26,7 @@
 	{/foreach}
     
 	{if or( $is_dipendente, fetch( 'user', 'has_access_to', hash( 'module', 'openpa', 'function', 'editor_tools' ) ) )}    
-		<div class="square-box-soft-gray info-dipendente float-break" style="position: relative">
-        <div style='position: absolute; right: 3px; top: 3px; font-family: sans-serif; font-weight: bold;'><a href='#' onclick='javascript:this.parentNode.parentNode.style.display="none"; return false;'>X</a></div>
+		<div class="editor_tools square-box-soft-gray info-dipendente float-break" style="position: relative">
 		<ul>
             
             <li><strong>Ultima modifica di:</strong> <a href={$node.creator.main_node.url_alias|ezurl}>{$node.creator.name}</a> il {$node.object.modified|l10n(shortdatetime)}</li>            
@@ -169,3 +168,4 @@
 		</div>
 	{/if}
 {/if}
+{/debug-accumulator}

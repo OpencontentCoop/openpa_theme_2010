@@ -117,7 +117,7 @@
 		{else}
 			{if $node.data_map.ruolo2.has_content}
 				{attribute_view_gui attribute=$node.data_map.ruolo2}
-			{elseif $node.data_map.abstract.has_content}}			
+			{elseif $node.data_map.abstract.has_content}
 				{attribute_view_gui attribute=$node.data_map.abstract}
 			{/if}
 		{/if}

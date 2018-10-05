@@ -2,14 +2,14 @@
      $left_menu_depth = count($pagedata.path_array)|gt(1)|choose( 0, 1 )
      $parent_node = fetch(content, node, hash(node_id, $current_node_id))
      $left_menu_root_url = cond( $pagedata.path_array[$left_menu_depth].url_alias, $pagedata.path_array[$left_menu_depth].url_alias, $requested_uri_string )
-     $node_id = $pagedata.path_array[$left_menu_depth].node_id}
+     $node_id = $pagedata.path_array[$left_menu_depth].node_id
+     $usaMenuEsteso = openpaini( 'SideMenu', 'UsaMenuEsteso', 'enabled' )}
 
 {if is_area_tematica()}
     {set $left_menu_depth = inc($left_menu_depth)}
 {/if}
 
 {if openpaini( 'SideMenu', 'AjaxMenu', 'enabled' )|eq( 'enabled' )}
-{ezscript_require(array( 'ezjsc::jquery', 'ezjsc::jqueryio', 'ajaxmenu.js' ) )}
 <script type="text/javascript">
 {literal}
 $(document).ready(function() {
@@ -52,7 +52,11 @@ $(document).ready(function() {
          $current_node_in_path_4 = first_set( $pagedata.path_array[$left_menu_depth|sum(3)].node_id,  0 )
          $current_node_in_path_5 = first_set( $pagedata.path_array[$left_menu_depth|sum(4)].node_id,  0 )}
 
-	{if $left_menu_items_count}
+    {if $root_node.depth|eq(1)}
+        {set $usaMenuEsteso = 'force-disabled'}
+    {/if}
+
+    {if $left_menu_items_count}
         <ul class="menu-list">
         {foreach $left_menu_items as $key => $item}
         {if openpaini( 'SideMenu', 'NascondiNodi', array() )|contains( $item.node_id )|not()}
@@ -83,7 +87,7 @@ $(document).ready(function() {
 					</div>
             {/if}
 
-            {if or( eq( $current_node_in_path_2, $item.node_id ), openpaini( 'SideMenu', 'UsaMenuEsteso', 'enabled' )|eq( 'enabled' ) )}
+            {if and( $usaMenuEsteso|ne( 'force-disabled' ), or( eq( $current_node_in_path_2, $item.node_id ), $usaMenuEsteso|eq( 'enabled' ) ))}
                 {def $sub_menu_items = fetch( 'content', 'list', hash( 'parent_node_id', $item.node_id, 'sort_by', $item.sort_array, 'data_map_load', false(),
                                                                       'class_filter_type', 'include', 'class_filter_array', $inimenu ) )
                      $sub_menu_items_count = $sub_menu_items|count}

@@ -1,6 +1,12 @@
-{def $icon_size='normal'
-     $icon_title=$attribute.content.mime_type
-     $icon='no'}
+{if is_set($icon_size)|not()}
+    {def $icon_size='normal'}
+{/if}
+{if is_set($icon_title)|not()}
+    {def $icon_title=$attribute.content.mime_type}
+{/if}
+{if is_set($icon)|not()}
+    {def $icon='no'}
+{/if}
 {if is_set( $show_flip )|not()}
 {def $show_flip = false()}
 {/if}

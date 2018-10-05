@@ -17,12 +17,11 @@
 
 
 {def $layout1zone = '1ZonesLayoutFolder'
-	$node = fetch(content, node, hash(node_id, $module_result.node_id))
-	$enabled_container = openpaini( 'GestioneClassi', 'escludere_da_extra_info' )
-	$folder =''
-    $folder_virtuale = false()
-	$classi_filtro = openpaini( 'GestioneClassi', 'classi_che_producono_contenuti' )
-	$classe_filtro = false()}
+	 $enabled_container = openpaini( 'GestioneClassi', 'escludere_da_extra_info' )
+	 $folder =''
+     $folder_virtuale = false()
+	 $classi_filtro = openpaini( 'GestioneClassi', 'classi_che_producono_contenuti' )
+	 $classe_filtro = false()}
 
 
 {if $classi_filtro|contains($node.class_identifier)}

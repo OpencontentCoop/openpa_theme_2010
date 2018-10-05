@@ -1,5 +1,4 @@
-{ezscript_require( array( 'cachedmenu.js' ) )}
-
+{def $pagedata = openpacontext()}
 <div class="topmenu-design{if openpaini( 'TopMenu', 'NodiCustomMenu', false() )} custom{/if}">
 
     <h2 class="hide">Menu principale</h2>
@@ -41,7 +40,7 @@
                         {if $aree_tematiche_level_2_count|eq( $key|inc )}
                             {set $aree_tematiche_level_2_class = $aree_tematiche_level_2_class|append("sublastli")}
                         {/if}
-                        {if $item2.node_id|eq( $current_node_id )}
+                        {if $item2.node_id|eq( openpacontext().current_node_id )}
                             {set $aree_tematiche_level_2_class = $aree_tematiche_level_2_class|append("current")}
                         {/if}
                         {set $aree_tematiche_level_2_class = $aree_tematiche_level_2_class|append($item2.name|slugize())}

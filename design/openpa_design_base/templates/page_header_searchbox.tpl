@@ -20,7 +20,7 @@ $(document).ready(function(){
         <fieldset>
             <legend class="hide">Strumenti di ricerca</legend>
             <label for="searchbox_text" class="hide">{'Search'|i18n('design/ezwebin/pagelayout')}</label>
-            {if $pagedata.is_edit}
+            {if openpacontext().is_edit}
                 <input disabled="disabled" id="searchbox_text" name="SearchText" type="text" value="" size="12" />
                 <button id="searchbox_submit" type="submit" class="button-disbled searchbutton">{'Search'|i18n('design/ezwebin/pagelayout')}</button>
             {else} 

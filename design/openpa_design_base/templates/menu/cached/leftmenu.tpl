@@ -16,6 +16,11 @@
      $a_class2 = array()
      $a_class3 = array()}
 
+{def $usaMenuEsteso = openpaini( 'SideMenu', 'UsaMenuEsteso', 'enabled' )}
+{if $root_node.depth|eq(1)}
+    {set $usaMenuEsteso = 'force-disabled'}
+{/if}
+
 {if $left_menu_items_count}
     <ul class="menu-list">
     {foreach $left_menu_items as $key => $item}
@@ -37,11 +42,11 @@
                      $sub_menu_items_count = $sub_menu_items|count}
                      
                 <div class="second_level_menu">                    
-                    <span class="handler {if $a_class}{$a_class|implode(" ")}{/if}{if $sub_menu_items_count} activable{/if}"></span>
+                    <span class="handler {if $a_class}{$a_class|implode(" ")}{/if}{if and($sub_menu_items_count, $usaMenuEsteso|eq('enabled'))} activable{/if}"></span>
                     {include uri='design:menu/cached/leftmenu_item.tpl' node=$item class=$a_class}
                 </div>
                     
-                {if $sub_menu_items_count}
+                {if and($sub_menu_items_count, $usaMenuEsteso|eq('enabled'))}
                     <ul class="submenu-list-1">
                         
                         {foreach $sub_menu_items as $subkey => $subitem}

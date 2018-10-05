@@ -19,6 +19,8 @@
 
 {if is_set( $class )|not()}
     {def $class = $node.name|slugize()}
+{elseif is_array($class)}
+    {set $class = $class|implode(' ')}
 {/if}
 
 <a data-contentnode="{$node.node_id}" class="{$class}" href="{$href}" {if $target}target="{$target}"{/if} title="{$title}">

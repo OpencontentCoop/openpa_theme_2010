@@ -4,8 +4,6 @@
      $main_styles = openpaini( 'Stili', 'Nodo_NomeStile', array() )
      $hide_children = openpaini( 'TopMenu', 'NodiSoloPrimoLivello', array() )}
 
-{ezscript_require( array( 'menu.js' ) )}
-
 <div class="topmenu-design{if $custom_menu} custom{/if}">
 
     <h2 class="hide">Menu principale</h2>

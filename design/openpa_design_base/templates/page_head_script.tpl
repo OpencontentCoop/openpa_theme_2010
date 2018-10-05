@@ -1,5 +1,11 @@
 {* Load JavaScript dependencys + JavaScriptList *}
-{ezscript_load( ezini( 'JavaScriptSettings', 'JavaScriptList', 'design.ini' ) )}
+{ezscript_load( array(
+    'ezjsc::jquery',
+    'ezjsc::jqueryio',
+    'cachedmenu.js',
+    'ajaxmenu.js',
+    ezini( 'JavaScriptSettings', 'JavaScriptList', 'design.ini' )
+))}
 
 <!--[if IE]>
 {ezscript_load( array( 'jquery.placeholder.js' ) )}

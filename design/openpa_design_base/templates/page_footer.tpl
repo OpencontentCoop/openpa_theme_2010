@@ -50,7 +50,7 @@
                 {def $href = $item.url_alias|ezurl(no)}
                 {if eq( $ui_context, 'browse' )}
                     {set $href = concat("content/browse/", $item.node_id)|ezurl(no)}
-                {elseif $pagedata.is_edit}
+                {elseif openpacontext().is_edit}
                     {set $href = '#'}
                 {elseif and( is_set( $item.data_map.location ), $item.data_map.location.has_content )}
                     {set $href = $item.data_map.location.content}                        
