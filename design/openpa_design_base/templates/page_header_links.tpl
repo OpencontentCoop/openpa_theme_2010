@@ -4,7 +4,7 @@
 
 <ul>
 
-	<li id="login" style="display: none"><a href={concat("/user/login?url=",$module_result.uri)|ezurl} title="Login">Login</a></li>
+	<li id="login" style="display: none"><a href={"/user/login"|ezurl} title="Login">Login</a></li>
 
 	<li id="print" class="no-js-hide">
 		<a href="javascript:window.print()" title="Stampa la pagina corrente">Stampa</a>
