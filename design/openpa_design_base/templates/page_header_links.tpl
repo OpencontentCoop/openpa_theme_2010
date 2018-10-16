@@ -49,13 +49,15 @@
 
 <script>{literal}
 $(document).ready(function(){
-	var injectUserInfo = function(data){
+    var login = $('#login');
+    login.find('a').attr('href', login.find('a').attr('href') + '?url='+ ModuleResultUri);
+    var injectUserInfo = function(data){
 		if(data.error_text || !data.content){
-			$('#login').show();
+			login.show();
 		}else{
-			$('#login').after('<li id="myprofile"><a href="/user/edit/" title="Visualizza il profilo utente">Il mio profilo</a></li><li id="logout"><a href="/user/logout" title="Logout">Logout ('+data.content.name+')</a></li>');
+            login.after('<li id="myprofile"><a href="/user/edit/" title="Visualizza il profilo utente">Il mio profilo</a></li><li id="logout"><a href="/user/logout" title="Logout">Logout ('+data.content.name+')</a></li>');
 			if(data.content.has_access_to_dashboard){
-				$('#login').after('<li id="dashboard"><a href="/content/dashboard/" title="Pannello strumenti">Pannello strumenti</a></li>');
+                login.after('<li id="dashboard"><a href="/content/dashboard/" title="Pannello strumenti">Pannello strumenti</a></li>');
 			}
 		}
 	};
@@ -64,7 +66,7 @@ $(document).ready(function(){
 			injectUserInfo(data);
 		});
 	}else{
-		$('#login').show();
+        login.show();
 	}
 });
 {/literal}</script>
