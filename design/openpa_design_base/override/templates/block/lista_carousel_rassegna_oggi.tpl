@@ -92,13 +92,16 @@ $(document).ready(function() {
     var target = $('<div class="simple_overlay hide" id="gallery"><a class="prev">precedente</a><a class="next">successiva</a><div class="info"></div><img class="progress" alt="caricamento..." src={/literal}{'loading.gif'|ezimage()}{literal} /> </div>');
     $('body').append(target);
     $("#banner_carousel-{/literal}{$nodo.node_id}{literal}").jcarousel({scroll:2});
-    $("#banner_carousel-{/literal}{$nodo.node_id}{literal} .attribute-image p.gallery a").overlay({ 
-        target: '#gallery', 
-        expose: '#f1f1f1' 
-    }).gallery({ 
-        speed: 800,
-        template:'<a class="info-bottom" href=${title}>Apri articolo con tutti i dettagli</a><span>Articolo ${index} di ${total}</span>'
-    });
+    var overlayedElement = $("#banner_carousel-{/literal}{$nodo.node_id}{literal} .attribute-image p.gallery a");
+    if (overlayedElement.length > 0) {
+        overlayedElement.overlay({
+            target: '#gallery',
+            expose: '#f1f1f1'
+        }).gallery({
+            speed: 800,
+            template: '<a class="info-bottom" href=${title}>Apri articolo con tutti i dettagli</a><span>Articolo ${index} di ${total}</span>'
+        });
+    }
 });
 //--><!]]>
 {/literal}
@@ -117,8 +120,10 @@ $(document).ready(function() {
 	<div class="attribute-image">
 		{set $titolo_articolo=concat("Articolo: ",$banner.name|wash)}
 		{set url_articolo=$banner.url_alias|ezurl()}
-		<p class="no-js-hide gallery">{attribute_view_gui attribute=$banner.data_map.image title=$url_articolo image_class=gallerythumbnail href=$banner.data_map.image.content.imagelargeoverlay.url|ezurl}</p>
+		{if $banner.data_map.image.has_content}
+<p class="no-js-hide gallery">{attribute_view_gui attribute=$banner.data_map.image title=$url_articolo image_class=gallerythumbnail href=$banner.data_map.image.content.imagelargeoverlay.url|ezurl}</p>
 		<p class="no-js-show">{attribute_view_gui attribute=$banner.data_map.image image_class=gallerythumbnail href=$banner.url_alias|ezurl}</p>
+        {/if}
 	</div>
 	<div class="attribute-name">
 		<p class="no-js-hide gallery-name">
