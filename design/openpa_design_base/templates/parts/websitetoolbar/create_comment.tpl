@@ -16,7 +16,7 @@
     {if $comments_count|gt(0)}				
     <div class="content-view-children">
         {foreach $comments as $comment}
-            {node_view_gui view='full' content_node=$comment}
+            {include uri=object_handler($comment).control_template.full node=$comment}
         {/foreach}
     </div>
     {/if}
