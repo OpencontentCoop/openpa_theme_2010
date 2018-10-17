@@ -10,7 +10,7 @@ $(function() {
         dateFormat: "dd-mm-yy",
         numberOfMonths: 1
     });
-    if (location.hash == '') {      
+    if (location.hash == '' && $("#today").length > 0) {
       $("html, body").animate({ scrollTop: $("#today").offset().top });
     }
 });
