@@ -33,6 +33,9 @@
 					  ezini( 'StylesheetSettings', 'CSSFileList', 'design.ini' ),
 					  $area_tematica_css,
 					  $style_edit_css,
+					  'leaflet/leaflet.css',
+					  'leaflet/MarkerCluster.css',
+					  'leaflet/MarkerCluster.Default.css',
 					  'custom.css' ), 'screen' ) }
 {else}
   {ezcss_load( array( 'core.css',
@@ -51,6 +54,9 @@
 					  'arrows.css',
 					  $area_tematica_css,
 					  $style_edit_css,
+					  'leaflet/leaflet.css',
+					  'leaflet/MarkerCluster.css',
+					  'leaflet/MarkerCluster.Default.css',
 					  'custom.css' ), 'screen' ) }
 {/if}
 
