@@ -14,10 +14,10 @@
 
 *}
 
-{def $Sort = cond( ezhttp( 'Sort','get','hasVariable' ), ezhttp( 'Sort', 'get' ) )
-     $Order = cond( ezhttp( 'Order','get','hasVariable' ), ezhttp( 'Order', 'get' ) )
-     $from = cond( ezhttp( 'from','get','hasVariable' ), ezhttp( 'from', 'get' ) )
-	 $to = cond( ezhttp( 'to','get','hasVariable' ), ezhttp( 'to', 'get' ) )
+{def $Sort = cond( ezhttp( 'Sort','get','hasVariable' ), ezhttp( 'Sort', 'get' )|wash() )
+     $Order = cond( ezhttp( 'Order','get','hasVariable' ), ezhttp( 'Order', 'get' ) |wash())
+     $from = cond( ezhttp( 'from','get','hasVariable' ), ezhttp( 'from', 'get' )|wash() )
+	 $to = cond( ezhttp( 'to','get','hasVariable' ), ezhttp( 'to', 'get' )|wash() )
      $from_attributes = cond( ezhttp( 'from_attributes','get','hasVariable' ), ezhttp( 'from_attributes', 'get' ) )
      $to_attributes = cond( ezhttp( 'to_attributes','get','hasVariable' ), ezhttp( 'to_attributes', 'get' ) )}
 
@@ -285,9 +285,9 @@ $(function() {
 	                    <fieldset>
         	                <legend>{$attribute.name}:</legend>
                 	        <label for="from">Dalla data: <small class="no-js-show"> (GG-MM-AAAA)</small>
-                        	<input type="text" class="from_picker" name="from_attributes[{$filter_string}]" title="Dalla data" value="{if is_set($from_attributes[$filter_string])}{$from_attributes[$filter_string]}{/if}" /></label>
+                        	<input type="text" class="from_picker" name="from_attributes[{$filter_string}]" title="Dalla data" value="{if is_set($from_attributes[$filter_string])}{$from_attributes[$filter_string]|wash()}{/if}" /></label>
 	                        <label for="to">Alla data: <small class="no-js-show"> (GG-MM-AAAA)</small>
-        	                <input class="to_picker" type="text" name="to_attributes[{$filter_string}]" title="Alla data" value="{if is_set($to_attributes[$filter_string])}{$to_attributes[$filter_string]}{/if}" /></label>
+        	                <input class="to_picker" type="text" name="to_attributes[{$filter_string}]" title="Alla data" value="{if is_set($to_attributes[$filter_string])}{$to_attributes[$filter_string]|wash()}{/if}" /></label>
                 	    </fieldset>
                     {/if}                    
                 {/case}
@@ -471,7 +471,7 @@ $(function() {
              $cleanFilterParameters = array()
              $tempFilter = false()}
         
-        {def $query = cond( ezhttp( 'SearchText','get','hasVariable' ), ezhttp( 'SearchText', 'get' ), '' )}
+        {def $query = cond( ezhttp( 'SearchText','get','hasVariable' ), ezhttp( 'SearchText', 'get' )|wash(), '' )}
         {if count( $subtreearray )|eq(0)}
             {set $subtreearray = array( ezini( 'NodeSettings', 'RootNode', 'content.ini' ) )}
         {/if}

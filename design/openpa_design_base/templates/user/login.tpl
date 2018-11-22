@@ -60,7 +60,7 @@
 <p><a href={'/user/forgotpassword'|ezurl}>{'Forgot your password?'|i18n( 'design/ezwebin/user/login' )}</a></p>
 
 
-<input type="hidden" name="RedirectURI" value="{$redirect}" />
+<input type="hidden" name="RedirectURI" value="{$redirect|wash()}" />
 
 {if and( is_set( $User:post_data ), is_array( $User:post_data ) )}
   {foreach $User:post_data as $key => $postData}

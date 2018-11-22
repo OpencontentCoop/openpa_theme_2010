@@ -14,15 +14,15 @@
 
 
 {* cattura le variabili passate via GET *}
-{def $servizi_tmp = ezhttp( 'Servizi', 'get' )
+{def $servizi_tmp = ezhttp( 'Servizi', 'get' )|wash()
 	 $not_available_facets = openpaini( 'MotoreRicerca', 'faccette_non_disponibili' )
 	 $anni = ezhttp( 'Anni', 'get' )
 	 $interna = ezhttp( 'Interna', 'get' )
 	 $subfilter_arr = ezhttp('subfilter_arr','get')
 	 $argomenti = ezhttp( 'Argomenti', 'get' )
-	 $sort = ezhttp( 'Sort', 'get' )
-	 $cond = ezhttp( 'cond', 'get' )
-	 $order = ezhttp( 'Order', 'get' )
+	 $sort = ezhttp( 'Sort', 'get' )|wash()
+	 $cond = ezhttp( 'cond', 'get' )|wash()
+	 $order = ezhttp( 'Order', 'get' )|wash()
 	 $classe = ezhttp( 'SearchContentClassID', 'get' )
 	 $filtri_selezionati = ezhttp( 'Filtri', 'get' )
 	 $anno_s = ezhttp( 'anno_s', 'get' )

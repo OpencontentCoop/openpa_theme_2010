@@ -11,9 +11,9 @@
 {/if}
 
 {* cattura le variabili passate via GET *}
-{def $latitude 				    = cond( ezhttp_hasvariable( 'latitude','get','hasVariable' ), ezhttp( 'latitude', 'get' ) )
-     $longitude 				= cond( ezhttp_hasvariable( 'longitude','get','hasVariable' ), ezhttp( 'longitude', 'get' ) )
-     $address 				    = cond( ezhttp_hasvariable( 'address','get','hasVariable' ), ezhttp( 'address', 'get' ) )
+{def $latitude 				    = cond( ezhttp_hasvariable( 'latitude','get','hasVariable' ), ezhttp( 'latitude', 'get' )|wash() )
+     $longitude 				= cond( ezhttp_hasvariable( 'longitude','get','hasVariable' ), ezhttp( 'longitude', 'get' )|wash() )
+     $address 				    = cond( ezhttp_hasvariable( 'address','get','hasVariable' ), ezhttp( 'address', 'get' )|wash() )
      $anni 				        = cond( ezhttp_hasvariable( 'Anni','get','hasVariable' ), ezhttp( 'Anni', 'get' ) )
 	 $interna 			        = cond( ezhttp_hasvariable( 'Interna','get','hasVariable' ), ezhttp( 'Interna', 'get' ) )
 	 $Sort 			        	= cond( ezhttp_hasvariable( 'Sort','get','hasVariable' ), ezhttp( 'Sort', 'get' ) )

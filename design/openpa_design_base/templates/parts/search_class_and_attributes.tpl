@@ -17,10 +17,10 @@
 {if is_set($search_included)|not()}{def $search_included=false()}{/if}
 {if is_set($search_text)|not()}{def $search_text = ''}{/if}
 {if is_set($anno_s)|not()}{def $anno_s=hash(0, 'none')}{/if}
-{def $Sort = cond( ezhttp( 'Sort','get','hasVariable' ), ezhttp( 'Sort', 'get' ) )
-     $Order = cond( ezhttp( 'Order','get','hasVariable' ), ezhttp( 'Order', 'get' ) )
-     $from = cond( ezhttp( 'from','get','hasVariable' ), ezhttp( 'from', 'get' ) )
-	 $to = cond( ezhttp( 'to','get','hasVariable' ), ezhttp( 'to', 'get' ) )}
+{def $Sort = cond( ezhttp( 'Sort','get','hasVariable' ), ezhttp( 'Sort', 'get' )|wash() )
+     $Order = cond( ezhttp( 'Order','get','hasVariable' ), ezhttp( 'Order', 'get' )|wash() )
+     $from = cond( ezhttp( 'from','get','hasVariable' ), ezhttp( 'from', 'get' )|wash() )
+	 $to = cond( ezhttp( 'to','get','hasVariable' ), ezhttp( 'to', 'get' )|wash() )}
 
 {def $filterParameter = array()
      $SubTreeArray = cond( ezhttp( 'SubTreeArray','get','hasVariable' ), ezhttp( 'SubTreeArray', 'get' ), array() )}
@@ -503,7 +503,7 @@ $(function() {
              $cleanFilterParameters = array()
              $tempFilter = false()}
         
-        {def $query = cond( ezhttp( 'SearchText','get','hasVariable' ), ezhttp( 'SearchText', 'get' ), '' )}
+        {def $query = cond( ezhttp( 'SearchText','get','hasVariable' ), ezhttp( 'SearchText', 'get' )|wash(), '' )}
         {if count( $subtreearray )|eq(0)}
             {set $subtreearray = array( ezini( 'NodeSettings', 'RootNode', 'content.ini' ) )}
         {/if}

@@ -1,5 +1,5 @@
 {if ezhttp_hasvariable( 'from', 'get' )}	  
-  {def $original_object = fetch( content, object, hash( object_id, ezhttp( 'from', 'get' ) ) )}
+  {def $original_object = fetch( content, object, hash( object_id, ezhttp( 'from', 'get' )|wash() ) )}
   {if $original_object}
 	{def $original_node = $original_object.main_node}
 	<div class="warning">

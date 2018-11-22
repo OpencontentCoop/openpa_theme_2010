@@ -47,7 +47,7 @@
     {elseif ezhttp_hasvariable( 'LastAccessesURI', 'session' )}
         {set $_redirect = ezhttp( 'LastAccessesURI', 'session' )}
     {elseif ezhttp( 'url', 'get', true() )}
-        {set $_redirect = ezhttp( 'url', 'get' )}
+        {set $_redirect = ezhttp( 'url', 'get' )|wash()}
     {/if}  
     <div class="buttonblock">
         <input class="defaultbutton" type="submit" name="PublishButton" value="{'Send for publishing'|i18n('design/standard/content/edit')}" />
