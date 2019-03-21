@@ -24,7 +24,8 @@
     'jquery.opendataDataTable.js'
 ))}
 {ezcss_require( array(
-'jquery.dataTables.css'
+    'jquery.dataTables.css',
+    'chosen.css'
 ))}
 
 <script type="text/javascript" language="javascript" class="init">
