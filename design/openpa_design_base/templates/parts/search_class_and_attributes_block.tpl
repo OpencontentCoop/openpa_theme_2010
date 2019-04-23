@@ -221,7 +221,7 @@ $(function() {
                 
                 {case in=array('ezobjectrelationlist')}
                     
-                    {set $facets = $facets|append( hash( 'field', solr_meta_subfield($attribute.identifier,'name', 'string'), 'name', $attribute.name, 'limit', 100, 'sort', 'alpha' ) )}
+                    {set $facets = $facets|append( hash( 'field', solr_subfield($attribute.identifier,'name', 'string'), 'name', $attribute.name, 'limit', 100, 'sort', 'alpha' ) )}
                    {*
                     {if $attribute.identifier|eq('')}
                     {/if}

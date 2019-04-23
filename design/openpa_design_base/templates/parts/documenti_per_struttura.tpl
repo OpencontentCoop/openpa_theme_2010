@@ -30,7 +30,7 @@
         {foreach $items as $item}
             {foreach $item as $data}
                 <li>
-                    <a href="{concat( "content/advancedsearch?filter[]=", solr_meta_subfield( $data.attribute_identifier, 'name' ), ':"', $node.name|urlencode, '"&filter[]=contentclass_id:', $data.class_id, "&SearchButton=Cerca")|ezurl(no)}" title="Link a {$data.class_name|wash}">{$data.class_name|wash} {if count($item)|gt(1)}<small>{$data.attribute_name}</small>{/if} ({$data.value})</a>
+                    <a href="{concat( "content/advancedsearch?filter[]=", solr_subfield( $data.attribute_identifier, 'name', 'string' ), ':"', $node.name|urlencode, '"&filter[]=contentclass_id:', $data.class_id, "&SearchButton=Cerca")|ezurl(no)}" title="Link a {$data.class_name|wash}">{$data.class_name|wash} {if count($item)|gt(1)}<small>{$data.attribute_name}</small>{/if} ({$data.value})</a>
                 </li>
             {/foreach}
         {/foreach}
