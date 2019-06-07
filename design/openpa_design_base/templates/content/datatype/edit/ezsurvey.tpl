@@ -118,6 +118,11 @@ function removeClass( element, className )
 
 <fieldset>
 <legend>{'Survey'|i18n( 'survey' )}</legend>
+
+<div class="warning" role="alert">
+    Attenzione: i questionari non hanno un livello di protezione sufficiente a gestire dati sensibili, non devono perciò essere richiesti dati riguardanti la salute, gli orientamenti sessuali e religiosi o altro come indicato in UE 2016/679 (c.d. GDPR)
+</div>
+
 {def $survey=$attribute.content.survey}
 {def $survey_validation=$attribute.content.survey_validation}
 {def $survey_questions=$survey.questions}
