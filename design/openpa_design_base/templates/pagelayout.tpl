@@ -25,9 +25,8 @@
 {debug-accumulator id=page_head_script name=page_head_script}
 {include uri='design:page_head_script.tpl'}
 {include uri='design:page_head_google_tag_manager.tpl'}
-{/debug-accumulator}
-
 {include uri='design:page_head_google-site-verification.tpl'}
+{/debug-accumulator}
 
 {include uri='design:page_head.tpl'}
 {no_index_if_needed()}
