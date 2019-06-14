@@ -1,15 +1,12 @@
 {if openpaini( 'Seo', 'GoogleAnalyticsAccountID', false() )}
 <script type="text/javascript">
-<!--
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '{openpaini( 'Seo', 'GoogleAnalyticsAccountID' )}']);
-    _gaq.push(['_trackPageview']);
-    
-    (function() {ldelim}
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    {rdelim})();
--->
+(function(i,s,o,g,r,a,m){ldelim}i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ldelim}
+(i[r].q=i[r].q||[]).push(arguments){rdelim},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+{rdelim})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', '{openpaini( 'Seo', 'GoogleAnalyticsAccountID' )}', 'auto');
+ga('set', 'anonymizeIp', true);
+ga('set', 'forceSSL', true);
+ga('send', 'pageview');
 </script>
 {/if}

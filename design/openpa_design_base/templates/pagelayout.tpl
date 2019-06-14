@@ -24,9 +24,9 @@
 
 {debug-accumulator id=page_head_script name=page_head_script}
 {include uri='design:page_head_script.tpl'}
-{/debug-accumulator}
-
+{include uri='design:page_head_google_tag_manager.tpl'}
 {include uri='design:page_head_google-site-verification.tpl'}
+{/debug-accumulator}
 
 {include uri='design:page_head.tpl'}
 {no_index_if_needed()}
@@ -43,6 +43,7 @@ var PathArray = [{if is_set( openpacontext().path_array[0].node_id )}{foreach op
 var ModuleResultUri = "{$module_result.uri|wash()}";
 //]]>
 </script>
+{include uri='design:page_body_google_tag_manager.tpl'}
 
 {include uri='design:page_browser_alert.tpl'}
 
