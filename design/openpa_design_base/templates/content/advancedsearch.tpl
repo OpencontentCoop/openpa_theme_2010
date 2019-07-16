@@ -73,8 +73,8 @@
         {set $sub_tree = array()}
     {/if}
 	{foreach $SubTreeArray as $SubTree}
-        {set $SubTreeArrayString = concat($SubTreeArrayString, 'SubTreeArray[]=',$SubTree,'&')}
-        {set $sub_tree = $sub_tree|append($SubTree)}
+        {set $SubTreeArrayString = concat($SubTreeArrayString, 'SubTreeArray[]=',$SubTree|wash(),'&')}
+        {set $sub_tree = $sub_tree|append($SubTree|wash())}
 	{/foreach}
 {/if}
 
@@ -115,7 +115,7 @@
                 {set $Sort = $sort_by}
             {/if}
         {else}
-            {set $sort_by = $Sort}
+            {set $sort_by = $Sort|wash()}
         {/if}
 	{/case}
 {/switch}
@@ -134,7 +134,7 @@
 {/switch}
 
 {if and( is_array($anno_s), $anno_s[0]|ne( '' ) )}
-    {def $from_year = $anno_s[0]
+    {def $from_year = $anno_s[0]|wash()
          $to_year = $from_year|sum(1)}
     {set $dateFilter = concat('[', $from_year, '-01-01T00:59:59.999Z/YEAR TO ', $to_year, '-01-01T00:59:59.999Z/YEAR]')}
 {/if}
@@ -535,7 +535,7 @@
 			{include name=Navigator
 				 uri='design:navigator/google.tpl'
 				 page_uri='content/advancedsearch'
-				 page_uri_suffix=concat( '?SearchText=',$search_text|urlencode,'&PhraseSearchText=',$phrase_search_text|urlencode,$search_timestamp|gt(0)|choose('',concat('&SearchTimestamp=',$search_timestamp)), $uriSuffix,"&SearchButton=Cerca",cond( is_set($anno_s[0]), concat("&anno_s[]=",$anno_s[0]) ),$SubTreeArrayString,"Sort=",$Sort,"&Order=",$Order,"&cond=",$cond )
+				 page_uri_suffix=concat( '?SearchText=',$search_text|urlencode,'&PhraseSearchText=',$phrase_search_text|urlencode,$search_timestamp|gt(0)|choose('',concat('&SearchTimestamp=',$search_timestamp)), $uriSuffix,"&SearchButton=Cerca",cond( is_set($anno_s[0]), concat("&anno_s[]=",$anno_s[0]|wash()) ),$SubTreeArrayString,"Sort=",$Sort,"&Order=",$Order,"&cond=",$cond )
 				 item_count=$search_count
 				 view_parameters=$view_parameters
 				 item_limit=$page_limit}

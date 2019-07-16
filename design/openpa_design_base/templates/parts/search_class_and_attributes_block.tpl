@@ -84,7 +84,7 @@ $(function() {
     {def $tempSta = array()}
     {foreach $SubTreeArray as $sta}
         {if and( $sta|ne(ezini( 'NodeSettings', 'RootNode', 'content.ini' )), $sta|ne('') )}
-            {set $tempSta = $tempSta|append($sta)}
+            {set $tempSta = $tempSta|append($sta|wash())}
         {/if}
     {/foreach}
     {set $subtreearray = $tempSta}
@@ -142,7 +142,7 @@ $(function() {
     {if is_array($subtreearray)}
 		{set $subtreearray = $subtreearray|unique()} 
         {foreach $subtreearray as $sta}
-			<input name="SubTreeArray[]" type="hidden" value="{$sta}" />
+			<input name="SubTreeArray[]" type="hidden" value="{$sta|wash()}" />
 		{/foreach}
 	{/if}
 	<label for="search-string">Ricerca libera</label>
