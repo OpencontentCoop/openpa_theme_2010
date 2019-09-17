@@ -186,7 +186,7 @@ $(function() {
                         {*<option {if $Sort|eq('class_name')} class="marked" selected="selected"{/if} value="class_name">Tipologia di contenuto</option>*}
                         {foreach $sorters as $sorter}
                             {if and( $sorter.name|ne( 'Nome' ), $sorter.name|ne( 'Rilevanza' ), $sorter.name|ne( 'Tipologia di contenuto' ), $sorter.name|ne( 'Data di pubblicazione' ) )}
-                                <option {if $Sort|eq($sorter.value)} class="marked" selected="selected"{/if} value="{$sorter.value}">{$sorter.name}</option>
+                                <option {if $Sort|eq($sorter.value)} class="marked" selected="selected"{/if} value="{$sorter.value|wash()}">{$sorter.name}</option>
                             {/if}
                         {/foreach}
                     </select>
@@ -216,7 +216,7 @@ $(function() {
                 {case in=array('ezstring','eztext')}
                 {set $filterParameter = getFilterParameter( solr_field( $attribute.identifier, 'text' ) )}
                     <label for="{$attribute.identifier}">{$attribute.name}</label>
-                    <input id="{$attribute.identifier}" type="text" name="filter[{solr_field( $attribute.identifier, 'text' )}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]}{/if}" />
+                    <input id="{$attribute.identifier}" type="text" name="filter[{solr_field( $attribute.identifier, 'text' )}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]|wash()}{/if}" />
                 {/case}
                 
                 {case in=array('ezobjectrelationlist')}
@@ -298,13 +298,13 @@ $(function() {
                         <select id="{$attribute.identifier}" name="anno_s[]">
                                 <option value="">Qualsiasi anno</option>
                                 {foreach $anni as $anno}
-                                <option {if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if} value="{$anno}">{$anno}</option>
+                                <option {if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if} value="{$anno|wash()}">{$anno|wash()}</option>
                                 {/foreach}
                         </select>
                     {else}
                         {set $filterParameter = getFilterParameter( solr_field( $attribute.identifier, 'sint' ) )}
                         <label for="{$attribute.identifier}">{$attribute.name}</label>
-                        <input id="{$attribute.identifier}" size="5" type="text" name="filter[{solr_field( $attribute.identifier, 'sint' )}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]}{/if}" />
+                        <input id="{$attribute.identifier}" size="5" type="text" name="filter[{solr_field( $attribute.identifier, 'sint' )}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]|wash()}{/if}" />
                     {/if}
                     {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', solr_field( $attribute.identifier, 'sint' ) ) )}
                 {/case}            
@@ -458,9 +458,9 @@ $(function() {
             <fieldset>
                 <legend>Data di pubblicazione:</legend>
                 <label for="from">Dalla data: <small class="no-js-show"> (GG-MM-AAAA)</small>
-                <input type="text" class="from_picker" name="from" title="Dalla data" value="{if $from}{$from}{/if}" /></label>
+                <input type="text" class="from_picker" name="from" title="Dalla data" value="{if $from}{$from|wash()}{/if}" /></label>
                 <label for="to">Alla data: <small class="no-js-show"> (GG-MM-AAAA)</small>
-                <input class="to_picker" type="text" name="to" title="Alla data" value="{if $to}{$to}{/if}" /></label>
+                <input class="to_picker" type="text" name="to" title="Alla data" value="{if $to}{$to|wash()}{/if}" /></label>
             </fieldset>
     
             <input name="filter[]" value="contentclass_id:{$class.id}" type="hidden" />
@@ -532,7 +532,7 @@ $(function() {
                 <fieldset>
                     <legend>{$facet['name']}</legend>
                     <label>
-                        <input checked="checked" class="inline" type="checkbox" name="filter[]" value='{concat( $facet.field, ':', $filterValue[0] )}' /> {$filterValue[0]}
+                        <input checked="checked" class="inline" type="checkbox" name="filter[]" value='{concat( $facet.field, ':', $filterValue[0] )|wash()}' /> {$filterValue[0]}
                     </label>
                 </fieldset>
                 {/if}

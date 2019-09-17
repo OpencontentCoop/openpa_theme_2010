@@ -108,7 +108,7 @@ $(function() {
                 <option value="score">Rilevanza</option>                
                 {foreach $sorters as $sorter}
                     {if and( $sorter.name|ne( 'Nome' ), $sorter.name|ne( 'Rilevanza' ), $sorter.name|ne( 'Tipologia di contenuto' ), $sorter.name|ne( 'Data di pubblicazione' ) )}
-                        <option value="{$sorter.value}">{$sorter.name}</option>
+                        <option value="{$sorter.value|wash()}">{$sorter.name|wash()}</option>
                     {/if}
                 {/foreach}
             </select>
@@ -119,7 +119,7 @@ $(function() {
                 <option value="asc">Ascendente</option>
                 {foreach $sorters as $sorter}
                     {if and( $sorter.name|ne( 'Nome' ), $sorter.name|ne( 'Rilevanza' ), $sorter.name|ne( 'Tipologia di contenuto' ), $sorter.name|ne( 'Data di pubblicazione' ) )}
-                        <option value="{$sorter.value}">{$sorter.name}</option>
+                        <option value="{$sorter.value|wash()}">{$sorter.name|wash()}</option>
                     {/if}
                 {/foreach}
             </select>
@@ -176,13 +176,13 @@ $(function() {
                             <select id="{$attribute.identifier}" name="anno_s[]">
                                     <option value="">Qualsiasi anno</option>
                                     {foreach $anni as $anno}
-                                    <option {if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if} value="{$anno}">{$anno}</option>
+                                    <option {if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if} value="{$anno|wash()}">{$anno|wash()}</option>
                                     {/foreach}
                             </select>
                         {else}
                             {set $filterParameter = getFilterParameter( solr_field($attribute.identifier,'sint') )}
                             <label for="{$attribute.identifier}">{$attribute.name}</label>
-                            <input id="{$attribute.identifier}" size="5" type="text" name="filter[{solr_field($attribute.identifier,'sint')}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]}{/if}" />
+                            <input id="{$attribute.identifier}" size="5" type="text" name="filter[{solr_field($attribute.identifier,'sint')}]" value="{if is_set($filterParameter[0])}{$filterParameter[0]|wash()}{/if}" />
                         {/if}
                         {set $sorters = $sorters|append( hash( 'name', $attribute.name, 'value', solr_field($attribute.identifier,'sint') ) )}
                     {/case}                
@@ -205,10 +205,10 @@ $(function() {
             {if is_array($subtreearray)}
                 {set $subtreearray = $subtreearray|unique()} 
                 {foreach $subtreearray as $sta}
-                    <input name="SubTreeArray[]" type="hidden" value="{$sta}" />
+                    <input name="SubTreeArray[]" type="hidden" value="{$sta|wash()}" />
                 {/foreach}
             {else}
-            <input name="SubTreeArray[]" type="hidden" value="{$subtreearray}" />
+            <input name="SubTreeArray[]" type="hidden" value="{$subtreearray|wash()}" />
             {/if}
             
             {if count($facets)}

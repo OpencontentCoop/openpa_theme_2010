@@ -436,13 +436,13 @@ $(function() {
 										<select {if $sub_tree_passed[0]}class="marked"{/if} id="SubTreeArray" name="SubTreeArray[]">
 											<option value="-1">In tutte le sezioni{*"Any section"|i18n("design/standard/content/search")*}</option>
 										{if $sub_tree|contains($search_sub_tree[0])|not()}
-											<option selected="selected" value="{$search_sub_tree[0]}">
+											<option selected="selected" value="{$search_sub_tree[0]|wash()}">
 												Solo in: "{$orig_position.name}"
 											</option>
 										{/if}
 										{foreach $sub_tree as $k => $subtree}
 											{def $subtree_node=fetch(content,node,hash(node_id, $subtree))}
-											<option {cond( $subtree|eq($search_sub_tree[0] ), ' class="marked" selected="selected"', '' )} value="{$subtree}">
+											<option {cond( $subtree|eq($search_sub_tree[0] ), ' class="marked" selected="selected"', '' )} value="{$subtree|wash()}">
 												Solo in "{$subtree_node.name|wash}"
 											</option>
 										{/foreach}
@@ -467,7 +467,7 @@ $(function() {
 											'sort_by', array('name', true()),
 											'class_filter_type',  'include', 'class_filter_array', array( 'argomento' )))}
 											{foreach $argomenti_tutti as $k => $argomento}
-												<option {if concat('"', $argomento.name, '"')|eq($argomenti[0])} class="marked" selected="selected"{/if} value='"{$argomento.name}"'>{$argomento.name|wash}</option>
+												<option {if concat('"', $argomento.name, '"')|eq($argomenti[0])} class="marked" selected="selected"{/if} value='"{$argomento.name|wash()}"'>{$argomento.name|wash}</option>
 											{/foreach}
 										</optgroup>
 									{/foreach}
@@ -501,7 +501,7 @@ $(function() {
 									<select {if $anno_s[0]}class="marked"{/if} id="anno_s" name="anno_s[]">
 										<option value="">Qualsiasi anno</option>
 										{foreach $anni as $anno}
-										<option {if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if} value="{$anno}">{$anno}</option>
+										<option {if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if} value="{$anno|wash()}">{$anno|wash()}</option>
 										{/foreach}
 									</select>
 								</div>
