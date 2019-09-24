@@ -6,9 +6,9 @@
 {if is_set($survey_validation.post_variables.variables[$question.id])}
   {def $previous_vars=$survey_validation.post_variables.variables[$question.id]}
 {/if}
-  <input class="box" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}" type="text" size="{$question.num}" value="{if is_set($previous_vars.extra_answer)}{$previous_vars.extra_answer}{else}{$question_result.text|wash('xhtml')}{/if}" />
+  <input class="box" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}" type="text" size="{$question.num}" value="{if is_set($previous_vars.extra_answer)}{$previous_vars.extra_answer|wash()}{else}{$question_result.text|wash('xhtml')}{/if}" />
 {section-else}
-  <input class="box" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}" type="text" size="{$question.num}" value="{if $question.answer}{$question.answer}{elseif $question.default_value}{$question.default_value|wash('xhtml')}{/if}" />
+  <input class="box" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}" type="text" size="{$question.num}" value="{if $question.answer}{$question.answer|wash()}{elseif $question.default_value}{$question.default_value|wash('xhtml')}{/if}" />
 {/section}
 {/case}
 {case}
@@ -16,9 +16,9 @@
 {if is_set($survey_validation.post_variables.variables[$question.id])}
   {def $previous_vars=$survey_validation.post_variables.variables[$question.id]}
 {/if}
-  <textarea class="box" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}" rows="{$question.num2}" cols="{$question.num}">{if is_set($previous_vars.answer)}{$previous_vars.extra_answer}{else}{$question_result.text|wash('xhtml')}{/if}</textarea>
+  <textarea class="box" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}" rows="{$question.num2}" cols="{$question.num}">{if is_set($previous_vars.answer)}{$previous_vars.extra_answer|wash()}{else}{$question_result.text|wash('xhtml')}{/if}</textarea>
 {section-else}
-  <textarea class="box" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}" rows="{$question.num2}" cols="{$question.num}">{if $question.answer}{$question.answer}{elseif $question.default_value}{$question.default_value|wash('xhtml')}{/if}</textarea>
+  <textarea class="box" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}" rows="{$question.num2}" cols="{$question.num}">{if $question.answer}{$question.answer|wash()}{elseif $question.default_value}{$question.default_value|wash('xhtml')}{/if}</textarea>
 {/section}
 {/case}
 {/switch}

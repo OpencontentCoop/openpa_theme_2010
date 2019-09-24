@@ -30,13 +30,13 @@
         <td class="full">
         {if gt( $i, 0 )}
             row {$i}:<br />
-            <input for="row" row="{$i|dec}" class="matrix-input" name="{$prefix_attribute}_ezsurvey_question_{$question.id}_text2_{$attribute_id}[1][{$i|dec}]" value="{if is_set( $matrixValues.1[$i|dec] )}{$matrixValues.1[$i|dec]}{/if}" />
+            <input for="row" row="{$i|dec}" class="matrix-input" name="{$prefix_attribute}_ezsurvey_question_{$question.id}_text2_{$attribute_id}[1][{$i|dec}]" value="{if is_set( $matrixValues.1[$i|dec] )}{$matrixValues.1[$i|dec]|wash()}{/if}" />
         {/if}
         </td>
 
         {for 0 to $question.num|wash('xhtml')|dec as $j}
             {if eq( $i, 0 )}
-            <td class="full">column {$j|inc}:<br /><input for="column" column="{$j}" class="matrix-input" name="{$prefix_attribute}_ezsurvey_question_{$question.id}_text2_{$attribute_id}[0][{$j}]" value="{if is_set( $matrixValues.0[$j] )}{$matrixValues.0[$j]}{/if}" /></td>
+            <td class="full">column {$j|inc}:<br /><input for="column" column="{$j}" class="matrix-input" name="{$prefix_attribute}_ezsurvey_question_{$question.id}_text2_{$attribute_id}[0][{$j}]" value="{if is_set( $matrixValues.0[$j] )}{$matrixValues.0[$j]|wash()}{/if}" /></td>
             {else}
             <td>&nbsp;</td>
             {/if}

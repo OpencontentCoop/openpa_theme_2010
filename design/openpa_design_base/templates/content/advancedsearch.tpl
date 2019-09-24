@@ -394,7 +394,7 @@
 									<select {if is_set($anno_s[0])}class="marked"{/if} id="anno_s" name="anno_s[]">
 										<option value="">Qualsiasi anno</option>
 										{foreach $_anni as $anno}
-										<option {if is_set($anno_s[0])}{if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if}{/if} value="{$anno}">{$anno}</option>
+										<option {if is_set($anno_s[0])}{if $anno|eq($anno_s[0])} class="marked" selected="selected"{/if}{/if} value="{$anno|wash()}">{$anno|wash()}</option>
 										{/foreach}
 									</select>
 								</div>

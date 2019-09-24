@@ -53,8 +53,8 @@
         <input class="defaultbutton" type="submit" name="PublishButton" value="{'Send for publishing'|i18n('design/standard/content/edit')}" />
         <input class="button" type="submit" name="StoreButton" value="{'Store draft'|i18n('design/standard/content/edit')}" />
         <input class="button" type="submit" name="DiscardButton" value="{'Discard'|i18n('design/standard/content/edit')}" />
-        <input type="hidden" name="RedirectIfDiscarded" value="{$_redirect}" />
-        <input type="hidden" name="RedirectURIAfterPublish" value="{$_redirect}" />
+        <input type="hidden" name="RedirectIfDiscarded" value="{$_redirect|wash()}" />
+        <input type="hidden" name="RedirectURIAfterPublish" value="{$_redirect|wash()}" />
     </div>
     <!-- Left part end -->
     </td>

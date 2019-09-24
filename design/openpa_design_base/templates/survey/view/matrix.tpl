@@ -28,7 +28,7 @@
                 <td class="full" style="text-align: center">{$matrix.0[$j]}</td>
                 {else}
                 <td style="text-align: center">
-                    <input type="checkbox" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}[{$i|dec}]" value="{$j}" {if and( is_set( $answer[$i|dec] ), eq( $answer[$i|dec], $j ))}checked="checked"{/if} />
+                    <input type="checkbox" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}[{$i|dec}]" value="{$j|wash()}" {if and( is_set( $answer[$i|dec] ), eq( $answer[$i|dec], $j ))}checked="checked"{/if} />
                 </td>
                 {/if}
             {/for}

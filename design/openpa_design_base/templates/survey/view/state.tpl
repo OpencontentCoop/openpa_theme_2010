@@ -25,19 +25,19 @@
         {if $stateListUS}
 	        <optgroup label="US States">
 	        {foreach $stateListUS as $code => $state}
-	        <option value="{$code}" {if eq( $answer, $code )}selected{/if}>{$state}</option>
+	        <option value="{$code|wash()}" {if eq( $answer, $code )}selected{/if}>{$state}</option>
 	        {/foreach}
 	        </optgroup>
         {/if}
         {if $stateListCA}
 	        <optgroup label="Canadian Provinces">
 	        {foreach $stateListCA as $code => $state}
-	        <option value="{$code}" {if eq( $answer, $code )}selected{/if}>{$state}</option>
+	        <option value="{$code|wash()}" {if eq( $answer, $code )}selected{/if}>{$state}</option>
 	        {/foreach}
 	        </optgroup>
 	    {/if}
     </select>
-    <input name="{$prefix_attribute}_ezsurvey_answer2_{$question.id}_{$attribute_id}" value="{$answer2}" />
+    <input name="{$prefix_attribute}_ezsurvey_answer2_{$question.id}_{$attribute_id}" value="{$answer2|wash()}" />
 </div>
 <script type="text/javascript">
 

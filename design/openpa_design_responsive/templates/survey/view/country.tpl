@@ -18,7 +18,7 @@
     <select class="form-control" name="{$prefix_attribute}_ezsurvey_answer_{$question.id}_{$attribute_id}">
         <option value="">Select a Country</option>
         {foreach $countryList as $country}
-        <option value="{$country[$countryFormat]}" {if eq( $answer, $country[$countryFormat] )}selected{/if}>{$country.Name}</option>
+        <option value="{$country[$countryFormat]|wash()}" {if eq( $answer, $country[$countryFormat] )}selected{/if}>{$country.Name}</option>
         {/foreach}
     </select>
 
