@@ -5,13 +5,11 @@
 
 {def $valuations=fetch( 'content', 'class', hash( 'class_id', 'valuation' ) )}
 
-<div id="valutazione-position">
-
 {if is_set( $valuations.object_list[0] )}
 {def $valutazione=$valuations.object_list[0]
 	 $node = fetch(content,node,hash(node_id,$node_id))
 	 $data_map=$valutazione.data_map}
-
+<div id="valutazione-position">
   <div id="valutazione" class="float-break">
 	<form action={"/content/action"|ezurl} method="post">
 	  <fieldset>
