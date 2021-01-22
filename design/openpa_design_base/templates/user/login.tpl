@@ -1,6 +1,6 @@
 {def $redirect = $User:redirect_uri|wash}
 {if ezhttp( 'url', 'get' )}
-    {set $redirect = ezhttp( 'url', 'get' )}
+    {set $redirect = ezhttp( 'url', 'get' )|wash()}
 {/if}    
 <div class="border-box">
 <div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
