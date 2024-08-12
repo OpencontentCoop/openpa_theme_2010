@@ -6,7 +6,7 @@
 {foreach $attribute.content as $file}
   <p class="attribute-{$file.mime_type|slugize()}">
     <a href={concat( 'ocmultibinary/download/', $attribute.contentobject_id, '/', $attribute.id,'/', $attribute.version , '/', $file.filename ,'/file/', $file.original_filename|urlencode )|ezurl}>      
-      {$file.original_filename|wash( xhtml )}
+      {$file.original_filename|explode('+')|implode(' ')|wash( xhtml )}
       <br /><small>(File di tipo {$file.mime_type_part} di {$file.filesize|si( byte )})</small>
     </a>
   </p>
